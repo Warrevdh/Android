@@ -1,24 +1,51 @@
 package com.example.boredapp
 
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Create
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 
 @Composable
-fun MyBottomAppBar() {
+fun MyBottomAppBar(
+    onHome: () -> Unit,
+    onCreate: () -> Unit,
+    onFinished: () -> Unit,
+    onAbout: () -> Unit,
+) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
         contentColor = MaterialTheme.colorScheme.primary,
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            textAlign = TextAlign.Center,
-            text = "Bottom app bar",
-        )
-    }
+        actions = {
+            IconButton(onClick = onHome) {
+                Icon(
+                    Icons.Filled.Home,
+                    contentDescription = "Home",
+                )
+            }
+            IconButton(onClick = onCreate) {
+                Icon(
+                    Icons.Filled.Create,
+                    contentDescription = "Create",
+                )
+            }
+            IconButton(onClick = onFinished) {
+                Icon(
+                    Icons.Filled.Check,
+                    contentDescription = "Finished",
+                )
+            }
+            IconButton(onClick = onAbout) {
+                Icon(
+                    Icons.Filled.AccountCircle,
+                    contentDescription = "About",
+                )
+            }
+        },
+    )
 }

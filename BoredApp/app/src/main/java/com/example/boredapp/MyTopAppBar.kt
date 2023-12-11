@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun MyTopAppBar() {
+fun MyTopAppBar(navigationIcon: @Composable () -> Unit) {
     TopAppBar(
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -18,5 +18,6 @@ fun MyTopAppBar() {
         title = {
             Text("Top app bar")
         },
+        navigationIcon = navigationIcon,
     )
 }
