@@ -1,4 +1,4 @@
-package com.example.boredapp
+package com.example.boredapp.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -69,17 +70,25 @@ fun BoredApp() {
             Modifier.padding(innerPadding),
         ) {
             composable(Destinations.Home.name) {
+                val viewModel: ActivityViewModel = viewModel()
+
                 HomeScreen()
             }
             composable(Destinations.Create.name) {
+                val viewModel: ActivityViewModel = viewModel()
+
                 CreateActivityItem {
                     navController.navigate(Destinations.Home.name)
                 }
             }
             composable(Destinations.About.name) {
+                val viewModel: ActivityViewModel = viewModel()
+
                 Text("About")
             }
             composable(Destinations.Finished.name) {
+                val viewModel: ActivityViewModel = viewModel()
+
                 Text("Finished")
             }
         }

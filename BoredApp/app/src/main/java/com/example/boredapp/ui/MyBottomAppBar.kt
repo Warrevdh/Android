@@ -1,4 +1,4 @@
-package com.example.boredapp
+package com.example.boredapp.ui
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle

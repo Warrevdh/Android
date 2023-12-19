@@ -1,4 +1,4 @@
-package com.example.boredapp
+package com.example.boredapp.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,28 +25,36 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CreateActivityItem(onCancel: () -> Unit) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        CreateSlider("Toegankelijkheid")
-        CreateSlider("Prijs")
-        CreateRangedSlider("Toegankelijkheid")
-        CreateRangedSlider("Prijs")
-        TextField(
-            label = { Text(text = "Deelnemers:") },
-            onValueChange = {},
-            value = "",
-            modifier = Modifier.padding(8.dp),
-        )
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
         ) {
-            Button(onClick = onCancel) {
-                Text(text = "Annuleer")
-            }
-            Spacer(modifier = Modifier.width(8.dp))
             Button(onClick = { /*TODO*/ }) {
-                Text(text = "Genereer")
+                Text("Genereer")
             }
         }
+//        CreateSlider("Toegankelijkheid")
+//        CreateSlider("Prijs")
+//        CreateRangedSlider("Toegankelijkheid")
+//        CreateRangedSlider("Prijs")
+//        TextField(
+//            label = { Text(text = "Deelnemers:") },
+//            onValueChange = {},
+//            value = "",
+//            modifier = Modifier.padding(8.dp),
+//        )
+//        Row(
+//            modifier = Modifier.fillMaxWidth(),
+//            horizontalArrangement = Arrangement.Center,
+//        ) {
+//            Button(onClick = onCancel) {
+//                Text(text = "Annuleer")
+//            }
+//            Spacer(modifier = Modifier.width(8.dp))
+//            Button(onClick = { /*TODO*/ }) {
+//                Text(text = "Genereer")
+//            }
+//        }
     }
 }
 

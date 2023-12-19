@@ -1,4 +1,4 @@
-package com.example.boredapp
+package com.example.boredapp.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,9 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ActivityItem() {
+fun ActivityItem(name: String = "", subtitle: String = "", modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier.background(
+        modifier = modifier.background(
             color = MaterialTheme.colorScheme.surfaceVariant,
         ).fillMaxWidth(),
     ) {
@@ -31,8 +31,8 @@ fun ActivityItem() {
             horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)) {
-                Text(text = "Title", fontSize = 16.sp, lineHeight = 24.sp)
-                Text(text = "Subtitle\nSecond line", fontSize = 14.sp, lineHeight = 20.sp)
+                Text(text = name, fontSize = 16.sp, lineHeight = 24.sp)
+                Text(text = subtitle, fontSize = 14.sp, lineHeight = 20.sp)
             }
             var checked by rememberSaveable { mutableStateOf(false) }
             Checkbox(checked = checked, onCheckedChange = { checked = !checked })
