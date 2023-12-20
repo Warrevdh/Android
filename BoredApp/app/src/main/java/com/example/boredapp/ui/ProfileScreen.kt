@@ -7,9 +7,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun ProfileScreen(
-    activityViewModel: FinishedActivitiesViewModel = viewModel(),
+    activityViewModel: SavedActivitiesViewModel = viewModel(),
 ) {
-    val activityState by activityViewModel.activityUiState.collectAsState()
+    val activityState by activityViewModel.uiState.collectAsState()
     val activities = activityState.activities
 //    LazyColumn {
 //        items(activities.size) { index ->

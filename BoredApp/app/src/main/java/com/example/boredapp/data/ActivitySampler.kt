@@ -1,5 +1,6 @@
 package com.example.boredapp.data
 
+import android.util.Log
 import com.example.boredapp.model.Activity
 import kotlin.random.Random
 
@@ -11,12 +12,22 @@ object ActivitySampler {
         "Learn a new skill",
     )
     val getAll: () -> MutableList<Activity> = {
+        Log.i("ActivitySampler", "getAll:")
         val list = mutableListOf<Activity>()
-        repeat(10) {
-            for (item in sampleActivities) {
-                list.add(Activity(item, if (Random.nextInt(0, 1) == 0) { "lorem ipsum dolor sit" } else "consectetur adipiscing elit"))
-            }
+        for (item in sampleActivities) {
+            list.add(
+                Activity(
+                    activity = item,
+                    type = if (Random.nextInt(0, 1) == 0) { "lorem ipsum dolor sit" } else "consectetur adipiscing elit",
+                    participants = Random.nextInt(1, 10),
+                    price = Random.nextDouble(0.0, 1.0),
+                    link = "https://www.google.com",
+                    key = "1234567890",
+                    accessibility = Random.nextDouble(0.0, 1.0),
+                ),
+            )
         }
+        Log.i("ActivitySampler", "getAll: $list")
         list
     }
 }

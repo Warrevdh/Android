@@ -70,7 +70,7 @@ fun BoredApp() {
             Modifier.padding(innerPadding),
         ) {
             composable(Destinations.Home.name) {
-                val viewModel: FinishedActivitiesViewModel = viewModel()
+                val viewModel: SavedActivitiesViewModel = viewModel()
 
                 HomeScreen()
             }
@@ -80,12 +80,12 @@ fun BoredApp() {
                 CreateActivityItem(viewModel)
             }
             composable(Destinations.Finished.name) {
-                val viewModel: FinishedActivitiesViewModel = viewModel()
+                val viewModel: SavedActivitiesViewModel = viewModel()
 
                 ProfileScreen()
             }
             composable(Destinations.About.name) {
-                val viewModel: FinishedActivitiesViewModel = viewModel()
+                val viewModel: SavedActivitiesViewModel = viewModel()
 
                 Text("About")
             }

@@ -2,8 +2,9 @@ package com.example.boredapp.ui
 
 import com.example.boredapp.model.Activity
 
-class GenerateActivityState(
-    val activity: Activity = Activity(
+data class GenerateActivityState(
+    val currentActivityList: List<Activity> = listOf(),
+    var activity: Activity = Activity(
         activity = "",
         type = "",
         participants = 0,

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -48,8 +49,37 @@ fun CreateActivityItem(generateActivityViewModel: GenerateActivityViewModel, mod
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center,
             ) {
-                Button(onClick = { generateActivityViewModel.generateActivity() }) {
-                    Text("Genereer")
+                when (activityApiState) {
+                    is ActivityApiState.Loading -> {
+                        Button(onClick = { generateActivityViewModel.generateActivity() }) {
+                            Text("Genereer")
+                        }
+                    }
+                    is ActivityApiState.Success -> {
+                        Row() {
+                            Button(onClick = { 
+                                generateActivityViewModel.resetActivity()
+                            }) {
+                                Text("Annuleer")
+                            }
+                            Spacer(modifier = Modifier.padding(horizontal = 8.dp))
+                            Button(onClick = {
+                                generateActivityViewModel.addActivity()
+                            }) {
+                                Text("Opslaan")
+                            }
+                        }
+                    }
+                    is ActivityApiState.Error -> {
+                        Button(onClick = { generateActivityViewModel.generateActivity() }) {
+                            Text("Genereer")
+                        }
+                    }
+                    is ActivityApiState.Waiting -> {
+                        Button(onClick = { generateActivityViewModel.generateActivity() }) {
+                            Text("Genereer")
+                        }
+                    }
                 }
             }
         }
