@@ -1,6 +1,7 @@
 package com.example.boredapp.model
 
 data class Activity(
+    val id: Int = 0,
     val activity: String,
     val type: String = "",
     val participants: Int = 0,

@@ -1,8 +1,7 @@
-package com.example.boredapp.ui
+package com.example.boredapp.ui.components
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.BottomAppBar
@@ -15,8 +14,7 @@ import androidx.compose.runtime.Composable
 fun MyBottomAppBar(
     onHome: () -> Unit,
     onCreate: () -> Unit,
-    onFinished: () -> Unit,
-    onAbout: () -> Unit,
+    onProfile: () -> Unit,
 ) {
     BottomAppBar(
         containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -34,13 +32,7 @@ fun MyBottomAppBar(
                     contentDescription = "Create",
                 )
             }
-            IconButton(onClick = onFinished) {
-                Icon(
-                    Icons.Filled.Check,
-                    contentDescription = "Finished",
-                )
-            }
-            IconButton(onClick = onAbout) {
+            IconButton(onClick = onProfile) {
                 Icon(
                     Icons.Filled.AccountCircle,
                     contentDescription = "About",

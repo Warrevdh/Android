@@ -1,10 +1,13 @@
 package com.example.boredapp.network
 
 import com.example.boredapp.model.Activity
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class ApiActivity(
+    val id: Int = 0,
     val activity: String,
     val type: String = "",
     val participants: Int = 0,
@@ -17,6 +20,7 @@ data class ApiActivity(
 fun ApiActivity.asDomainObject(): Activity {
     return this.let { apiActivity ->
         Activity(
+            id = apiActivity.id,
             activity = apiActivity.activity,
             type = apiActivity.type,
             participants = apiActivity.participants,
@@ -25,5 +29,11 @@ fun ApiActivity.asDomainObject(): Activity {
             key = apiActivity.key,
             accessibility = apiActivity.accessibility,
         )
+    }
+}
+
+fun Flow<ApiActivity>.asDomainObject(): Flow<Activity> {
+    return this.map {
+        it.asDomainObject()
     }
 }

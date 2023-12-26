@@ -1,9 +1,8 @@
-package com.example.boredapp.ui
+package com.example.boredapp.ui.createActivity
 
 import com.example.boredapp.model.Activity
 
 data class GenerateActivityState(
-    val currentActivityList: List<Activity> = listOf(),
     var activity: Activity = Activity(
         activity = "",
         type = "",
@@ -19,5 +18,11 @@ sealed interface ActivityApiState {
     object Waiting : ActivityApiState
     object Error : ActivityApiState
     object Loading : ActivityApiState
-    data class Success(val activity: Activity) : ActivityApiState
+    object Success : ActivityApiState
+}
+
+sealed interface SaveActivityState {
+    object Error : SaveActivityState
+    object Loading : SaveActivityState
+    object Success : SaveActivityState
 }
