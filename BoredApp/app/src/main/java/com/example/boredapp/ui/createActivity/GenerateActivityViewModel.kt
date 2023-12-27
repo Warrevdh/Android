@@ -29,28 +29,22 @@ class GenerateActivityViewModel(
     var activityApiState: ActivityApiState by mutableStateOf(ActivityApiState.Waiting)
         private set
     
-    var saveActivityState: SaveActivityState by mutableStateOf(SaveActivityState.Loading)
-        private set
-
     fun generateActivity() {
         getApiActivity()
     }
     
     fun resetActivity() {
-        saveActivityState = SaveActivityState.Loading
-        activityApiState = ActivityApiState.Waiting
         _uiState.update { GenerateActivityState() }
+        activityApiState = ActivityApiState.Waiting
     }
 
     fun saveActivity() {
         viewModelScope.launch {
-            saveActivityState = SaveActivityState.Loading
-            saveActivityState = try {
+            try {
                 activityRepository.insertActivity(uiState.value.activity)
                 resetActivity()
-                SaveActivityState.Success
             } catch (e: IOException) {
-                SaveActivityState.Error
+                activityApiState = ActivityApiState.Error
             }
         }
     }

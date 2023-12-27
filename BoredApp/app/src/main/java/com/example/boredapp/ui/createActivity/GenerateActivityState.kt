@@ -20,9 +20,3 @@ sealed interface ActivityApiState {
     object Loading : ActivityApiState
     object Success : ActivityApiState
 }
-
-sealed interface SaveActivityState {
-    object Error : SaveActivityState
-    object Loading : SaveActivityState
-    object Success : SaveActivityState
-}
