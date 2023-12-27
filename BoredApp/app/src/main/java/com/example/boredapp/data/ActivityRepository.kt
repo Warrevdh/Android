@@ -12,6 +12,9 @@ import kotlinx.coroutines.flow.map
 interface ActivityRepository {
     suspend fun insertActivity(activity: Activity)
     fun getAllActivities(): Flow<List<Activity>>
+
+    suspend fun deleteActivity(activity: Activity)
+    suspend fun deleteAllActivities()
     suspend fun generateActivity(): ApiActivity
 }
 
@@ -27,6 +30,14 @@ class CachingActivityRepository(
         return activityDao.getAllActivities().map {
             it.asDomainActivities()
         }
+    }
+    
+    override suspend fun deleteActivity(activity: Activity) {
+        activityDao.deleteActivity(activity.asDbActivity())
+    }
+    
+    override suspend fun deleteAllActivities() {
+        activityDao.deleteAllActivities()
     }
     
     override suspend fun generateActivity(): ApiActivity {

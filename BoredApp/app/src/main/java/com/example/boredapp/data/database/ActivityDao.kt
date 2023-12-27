@@ -1,6 +1,7 @@
 package com.example.boredapp.data.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -13,4 +14,10 @@ interface ActivityDao {
 
     @Query("SELECT * FROM activity ORDER BY activity ASC")
     fun getAllActivities(): Flow<List<DbActivity>>
+    
+    @Delete
+    suspend fun deleteActivity(activity: DbActivity)
+    
+    @Query("DELETE FROM activity")
+    suspend fun deleteAllActivities()
 }

@@ -11,10 +11,12 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.boredapp.BoredApplication
 import com.example.boredapp.data.ActivityRepository
+import com.example.boredapp.model.Activity
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import java.io.IOException
 
 class SavedActivitiesViewModel(
@@ -27,6 +29,28 @@ class SavedActivitiesViewModel(
     
     init {
         getActivities()
+    }
+    
+    fun clearList() {
+        try {
+            viewModelScope.launch {
+                activityRepository.deleteAllActivities()
+                getActivities()
+            }
+        } catch (e: IOException) {
+            activityListState = ActivityListState.Error
+        }
+    }
+    
+    fun deleteActivity(activity: Activity) {
+        try {
+            viewModelScope.launch {
+                activityRepository.deleteActivity(activity)
+                getActivities()
+            }
+        } catch (e: IOException) {
+            activityListState = ActivityListState.Error
+        }
     }
     
     private fun getActivities() {

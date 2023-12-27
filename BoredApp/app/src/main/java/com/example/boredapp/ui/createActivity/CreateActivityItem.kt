@@ -13,8 +13,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -31,9 +33,21 @@ fun CreateActivityItem(
     
     val activityApiState = generateActivityViewModel.activityApiState
     val saveActivityState = generateActivityViewModel.saveActivityState
-    
+
     val context = LocalContext.current
     
+    LaunchedEffect(saveActivityState) {
+        when (saveActivityState) {
+            SaveActivityState.Error -> {
+                Toast.makeText(context, "De activiteit kon niet worden opgeslaan", Toast.LENGTH_SHORT).show()
+            }
+            SaveActivityState.Loading -> {}
+            SaveActivityState.Success -> {
+                Toast.makeText(context, "Activiteit opgeslaan", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Box(modifier = modifier) {
             when (activityApiState) {
@@ -47,7 +61,8 @@ fun CreateActivityItem(
                 is ActivityApiState.Error -> {
                     Text("Error")
                 }
-                is ActivityApiState.Waiting -> {}
+                is ActivityApiState.Waiting -> {
+                }
             }
         }
         Column(
@@ -61,11 +76,6 @@ fun CreateActivityItem(
                 horizontalArrangement = Arrangement.Center,
             ) {
                 when (activityApiState) {
-                    is ActivityApiState.Loading -> {
-                        Button(onClick = { generateActivityViewModel.generateActivity() }) {
-                            Text("Genereer")
-                        }
-                    }
                     is ActivityApiState.Success -> {
                         Row() {
                             Button(onClick = { 
@@ -76,26 +86,12 @@ fun CreateActivityItem(
                             Spacer(modifier = Modifier.padding(horizontal = 8.dp))
                             Button(onClick = {
                                 generateActivityViewModel.saveActivity()
-                                when (saveActivityState) {
-                                    SaveActivityState.Error -> {
-                                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show() 
-                                    }
-                                    SaveActivityState.Loading -> {}
-                                    SaveActivityState.Success -> {
-                                        Toast.makeText(context, "Activiteit opgeslaan", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
                             }) {
                                 Text("Opslaan")
                             }
                         }
                     }
-                    is ActivityApiState.Error -> {
-                        Button(onClick = { generateActivityViewModel.generateActivity() }) {
-                            Text("Genereer")
-                        }
-                    }
-                    is ActivityApiState.Waiting -> {
+                    else -> {
                         Button(onClick = { generateActivityViewModel.generateActivity() }) {
                             Text("Genereer")
                         }
@@ -107,7 +103,7 @@ fun CreateActivityItem(
 }
 
 @Composable
-fun GeneratedActivity(modifier: Modifier = Modifier, activityState: GenerateActivityState) {
+fun GeneratedActivity(activityState: GenerateActivityState) {
     ActivityItem(
         activityState.activity,
     )

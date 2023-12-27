@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.io.IOException
+import java.net.SocketTimeoutException
 
 class GenerateActivityViewModel(
     private val activityRepository: ActivityRepository,
@@ -36,6 +37,7 @@ class GenerateActivityViewModel(
     }
     
     fun resetActivity() {
+        saveActivityState = SaveActivityState.Loading
         activityApiState = ActivityApiState.Waiting
         _uiState.update { GenerateActivityState() }
     }
@@ -43,13 +45,13 @@ class GenerateActivityViewModel(
     fun saveActivity() {
         viewModelScope.launch {
             saveActivityState = SaveActivityState.Loading
-            try {
+            saveActivityState = try {
                 activityRepository.insertActivity(uiState.value.activity)
                 resetActivity()
+                SaveActivityState.Success
             } catch (e: IOException) {
-                saveActivityState = SaveActivityState.Error
+                SaveActivityState.Error
             }
-            saveActivityState = SaveActivityState.Success
         }
     }
 
@@ -61,6 +63,8 @@ class GenerateActivityViewModel(
                 _uiState.update { GenerateActivityState(result.asDomainObject()) }
                 activityApiState = ActivityApiState.Success
             } catch (e: IOException) {
+                activityApiState = ActivityApiState.Error
+            } catch (e: SocketTimeoutException) {
                 activityApiState = ActivityApiState.Error
             }
         }
