@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BoredApp</string>
+    <string name="create">Create</string>
+    <string name="profile">Profile</string>
+    <string name="navigation_rail">Navigate between items here</string>
 </resources>
