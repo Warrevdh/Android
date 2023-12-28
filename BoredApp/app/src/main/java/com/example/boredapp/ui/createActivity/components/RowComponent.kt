@@ -14,10 +14,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
@@ -33,8 +29,10 @@ fun RowComponent(
     onSliderValueChange: (Float) -> Unit,
     onSliderValuesChange: (ClosedFloatingPointRange<Float>) -> Unit,
     text: String,
+    showSpecific: Boolean,
+    onClickSpecific: () -> Unit,
+    onClickRanged: () -> Unit,
 ) {
-    var showSpecific by remember { mutableStateOf(true) }
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
@@ -58,25 +56,19 @@ fun RowComponent(
                 ) {
                     DropdownMenuItem(
                         text = { Text(text = "Specifiek") },
-                        onClick = {
-                            showSpecific = true
-                            dismissDropdown()
-                        },
+                        onClick = onClickSpecific,
                     )
                     DropdownMenuItem(
                         text = { Text(text = "Ranged") },
-                        onClick = { 
-                            showSpecific = false
-                            dismissDropdown()
-                        },
+                        onClick = onClickRanged,
                     )
                 }
             }
         }
         if (showSpecific) {
-            CreateSlider(text, sliderValue, checked, onSliderValueChange)
+            CreateSlider(text, sliderValue, onSliderValueChange)
         } else {
-            CreateRangedSlider(text, sliderValues, checked, onSliderValuesChange)
+            CreateRangedSlider(text, sliderValues, onSliderValuesChange)
         }
     }
 }

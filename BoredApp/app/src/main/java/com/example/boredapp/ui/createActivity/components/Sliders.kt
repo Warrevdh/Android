@@ -18,7 +18,6 @@ import androidx.compose.ui.unit.dp
 fun CreateSlider(
     text: String,
     sliderValue: Float,
-    enabled: Boolean = false,
     onValueChange: (Float) -> Unit,
 ) {
     Column {
@@ -27,10 +26,9 @@ fun CreateSlider(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 32.dp),
-            color = if (enabled) Color.Black else Color.Gray,
+            Color.Black,
         )
         Slider(
-            enabled = enabled,
             value = sliderValue,
             onValueChange = onValueChange,
             valueRange = 0f..1f,
@@ -46,7 +44,6 @@ fun CreateSlider(
 fun CreateRangedSlider(
     text: String,
     sliderValue: ClosedFloatingPointRange<Float>,
-    enabled: Boolean = false,
     onValueChange: (ClosedFloatingPointRange<Float>) -> Unit,
 ) {
     Column {
@@ -55,16 +52,15 @@ fun CreateRangedSlider(
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 32.dp),
-            color = if (enabled) Color.Black else Color.Gray,
+            color = Color.Black,
         )
         Text(
             text = "Max. " + text + ": %.1f".format(sliderValue.endInclusive),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally),
-            color = if (enabled) Color.Black else Color.Gray,
+            color = Color.Black, 
         )
         RangeSlider(
-            enabled = enabled,
             value = sliderValue,
             onValueChange = onValueChange,
             valueRange = 0f..1f,

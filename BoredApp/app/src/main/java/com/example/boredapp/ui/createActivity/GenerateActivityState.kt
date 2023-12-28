@@ -17,6 +17,7 @@ data class GenerateActivityState(
 sealed interface ActivityApiState {
     object Waiting : ActivityApiState
     object Error : ActivityApiState
+    object NoActivityFound : ActivityApiState
     object Loading : ActivityApiState
     object Success : ActivityApiState
 }

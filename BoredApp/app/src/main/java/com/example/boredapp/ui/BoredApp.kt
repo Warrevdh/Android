@@ -16,7 +16,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.boredapp.ui.components.MyBottomAppBar
 import com.example.boredapp.ui.components.MyTopAppBar
-import com.example.boredapp.ui.createActivity.CreateActivityItem
+import com.example.boredapp.ui.createActivity.SelectCreateChoice
 import com.example.boredapp.ui.profile.ProfileScreen
 
 enum class Destinations {
@@ -64,7 +64,7 @@ fun BoredApp() {
                 HomeScreen()
             }
             composable(Destinations.Create.name) {
-                CreateActivityItem()
+                SelectCreateChoice()
             }
             composable(Destinations.Profile.name) {
                 ProfileScreen()
