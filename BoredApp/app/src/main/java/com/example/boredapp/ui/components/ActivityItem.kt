@@ -1,5 +1,8 @@
 package com.example.boredapp.ui.components
 
+import android.content.Intent
+import android.net.Uri
+import android.os.Bundle
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -24,8 +27,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import com.example.boredapp.model.Activity
 
 @Composable
@@ -36,6 +42,7 @@ fun ActivityItem(
     showConfirmation: () -> Unit = {},
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     ElevatedCard(
         modifier = modifier
             .padding(horizontal = 8.dp, vertical = 4.dp)
@@ -64,7 +71,16 @@ fun ActivityItem(
                         Text(text = "Price: ${activity.price}")
                         Text(text = "Accessibility: ${activity.accessibility}")
                         if (activity.link.isNotEmpty()) {
-                            Text(text = "Link: ${activity.link}")
+                            Text(
+                                modifier = Modifier.clickable {
+                                    val openUrl = Intent(Intent.ACTION_VIEW)
+                                    openUrl.data = Uri.parse(activity.link)
+                                    ContextCompat.startActivity(context, openUrl, Bundle())
+                                },
+                                color = Color.Blue,
+                                textDecoration = TextDecoration.Underline,
+                                text = activity.link,
+                            )
                         }
                     }
                 }
