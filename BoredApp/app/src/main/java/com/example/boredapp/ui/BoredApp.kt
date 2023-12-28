@@ -1,20 +1,12 @@
 package com.example.boredapp.ui
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Scaffold
@@ -22,22 +14,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.boredapp.R
 import com.example.boredapp.ui.components.MyBottomAppBar
 import com.example.boredapp.ui.components.MyTopAppBar
-import com.example.boredapp.ui.createActivity.SelectCreateChoice
 import com.example.boredapp.ui.navigation.BoredNavigationRail
 import com.example.boredapp.ui.navigation.NavOptions
 import com.example.boredapp.ui.navigation.NavigationDrawerContent
 import com.example.boredapp.ui.navigation.navComponent
-import com.example.boredapp.ui.profile.ProfileScreen
-import com.example.boredapp.ui.util.NavigationType
+import com.example.boredapp.ui.navigation.NavigationType
 
 enum class Destinations {
     Home,

@@ -12,7 +12,7 @@ import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.ui.Modifier
 import com.example.boredapp.ui.BoredApp
 import com.example.boredapp.ui.theme.BoredAppTheme
-import com.example.boredapp.ui.util.NavigationType
+import com.example.boredapp.ui.navigation.NavigationType
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)

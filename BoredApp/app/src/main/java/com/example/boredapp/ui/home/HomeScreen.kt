@@ -1,4 +1,4 @@
-package com.example.boredapp.ui
+package com.example.boredapp.ui.home
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
