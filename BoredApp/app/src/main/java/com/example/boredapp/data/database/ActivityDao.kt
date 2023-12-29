@@ -14,10 +14,10 @@ interface ActivityDao {
 
     @Query("SELECT * FROM activity ORDER BY activity ASC")
     fun getAllActivities(): Flow<List<DbActivity>>
-    
+
     @Delete
     suspend fun deleteActivity(activity: DbActivity)
-    
+
     @Query("DELETE FROM activity")
     suspend fun deleteAllActivities()
 }

@@ -6,12 +6,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.boredapp.ui.Destinations
-import com.example.boredapp.ui.home.HomeScreen
 import com.example.boredapp.ui.createActivity.SelectCreateChoice
+import com.example.boredapp.ui.home.HomeScreen
 import com.example.boredapp.ui.profile.ProfileScreen
 
 @Composable
-fun navComponent(navController: NavHostController, modifier: Modifier = Modifier) {
+fun NavComponent(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+) {
     NavHost(
         navController = navController,
         startDestination = Destinations.Home.name,

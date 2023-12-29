@@ -30,9 +30,7 @@ import com.example.boredapp.ui.createActivity.components.Dropdown
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SelectCreateChoice(
-    generateActivityViewModel: GenerateActivityViewModel = viewModel(factory = GenerateActivityViewModel.Factory),
-) {
+fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = viewModel(factory = GenerateActivityViewModel.Factory)) {
     var selectedOptionText by remember { mutableStateOf("") }
     var amountOfParticipants by remember { mutableStateOf("") }
     var priceSliderValue by remember { mutableFloatStateOf(0f) }
@@ -41,15 +39,16 @@ fun SelectCreateChoice(
     var accRangeSliderValue by remember { mutableStateOf(0f..1f) }
     var selectedTab by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
-    val tabs = listOf(
-        "Type",
-        "Deelnemers",
-        "Prijs",
-        "Toegankelijkheid",
-        "Prijsrange",
-        "Toegankelijkheid range",
-    )
-    
+    val tabs =
+        listOf(
+            "Type",
+            "Deelnemers",
+            "Prijs",
+            "Toegankelijkheid",
+            "Prijsrange",
+            "Toegankelijkheid range",
+        )
+
     LaunchedEffect(selectedTab) {
         generateActivityViewModel.resetApiState()
     }
@@ -87,11 +86,11 @@ fun SelectCreateChoice(
             1 -> {
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
-                    waitingComposable = { 
+                    waitingComposable = {
                         TextField(
                             value = amountOfParticipants,
                             label = { Text("Aantal deelnemers") },
-                            onValueChange = { amountOfParticipants = it }, 
+                            onValueChange = { amountOfParticipants = it },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         )
                     },
@@ -117,7 +116,13 @@ fun SelectCreateChoice(
             3 -> {
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
-                    waitingComposable = { CreateSlider(text = "Toegankelijkheid", sliderValue = accSliderValue, onValueChange = { accSliderValue = it }) },
+                    waitingComposable = {
+                        CreateSlider(
+                            text = "Toegankelijkheid",
+                            sliderValue = accSliderValue,
+                            onValueChange = { accSliderValue = it },
+                        )
+                    },
                 ) {
                     generateActivityViewModel.getApiActivityByAccessibility(accSliderValue)
                 }
@@ -125,7 +130,7 @@ fun SelectCreateChoice(
             4 -> {
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
-                    waitingComposable = { 
+                    waitingComposable = {
                         CreateRangedSlider(
                             text = "Prijs",
                             sliderValue = priceRangeSliderValue,
@@ -139,7 +144,7 @@ fun SelectCreateChoice(
             5 -> {
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
-                    waitingComposable = { 
+                    waitingComposable = {
                         CreateRangedSlider(
                             text = "Toegankelijkheid",
                             sliderValue = accRangeSliderValue,
@@ -147,7 +152,10 @@ fun SelectCreateChoice(
                         )
                     },
                 ) {
-                    generateActivityViewModel.getApiActivityByAccessibilityRange(accRangeSliderValue.start, accRangeSliderValue.endInclusive)
+                    generateActivityViewModel.getApiActivityByAccessibilityRange(
+                        accRangeSliderValue.start,
+                        accRangeSliderValue.endInclusive,
+                    )
                 }
             }
         }

@@ -15,7 +15,7 @@ import com.example.boredapp.ui.createActivity.GenerateActivityViewModel
 @Composable
 fun SaveActivityBtns(generateActivityViewModel: GenerateActivityViewModel) {
     val context = LocalContext.current
-    
+
     Row {
         Button(onClick = {
             generateActivityViewModel.resetActivity()

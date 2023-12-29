@@ -17,26 +17,28 @@ data class DbActivity(
     val accessibility: Double,
 )
 
-fun DbActivity.asDomainActivity() = Activity(
-    id = id,
-    activity = activity,
-    type = type,
-    participants = participants,
-    price = price,
-    link = link,
-    key = key,
-    accessibility = accessibility,
-)
+fun DbActivity.asDomainActivity() =
+    Activity(
+        id = id,
+        activity = activity,
+        type = type,
+        participants = participants,
+        price = price,
+        link = link,
+        key = key,
+        accessibility = accessibility,
+    )
 
-fun Activity.asDbActivity() = DbActivity(
-    id = id,
-    activity = activity,
-    type = type,
-    participants = participants,
-    price = price,
-    link = link,
-    key = key,
-    accessibility = accessibility,
-)
+fun Activity.asDbActivity() =
+    DbActivity(
+        id = id,
+        activity = activity,
+        type = type,
+        participants = participants,
+        price = price,
+        link = link,
+        key = key,
+        accessibility = accessibility,
+    )
 
 fun List<DbActivity>.asDomainActivities() = map { it.asDomainActivity() }

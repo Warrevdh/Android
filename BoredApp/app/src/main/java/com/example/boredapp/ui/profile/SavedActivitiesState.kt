@@ -8,6 +8,8 @@ data class SavedActivitiesState(
 
 sealed interface ActivityListState {
     object Loading : ActivityListState
+
     object Success : ActivityListState
+
     object Error : ActivityListState
 }

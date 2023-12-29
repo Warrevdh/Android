@@ -15,7 +15,10 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Dropdown(selectedOptionText: String, onValueChange: (String) -> Unit) {
+fun Dropdown(
+    selectedOptionText: String,
+    onValueChange: (String) -> Unit,
+) {
     val options = listOf("education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork")
     var expanded by remember { mutableStateOf(false) }
 
@@ -44,8 +47,8 @@ fun Dropdown(selectedOptionText: String, onValueChange: (String) -> Unit) {
                 expanded = false
             },
         ) {
-            options.forEach { selectionOption -> 
-                DropdownMenuItem( 
+            options.forEach { selectionOption ->
+                DropdownMenuItem(
                     text = { Text(text = selectionOption) },
                     onClick = {
                         onValueChange(selectionOption)

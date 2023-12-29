@@ -19,7 +19,8 @@ import com.example.boredapp.R
 fun NavigationDrawerContent(
     selectedDestination: NavDestination?,
     onTabPressed: ((String) -> Unit),
-    modifier: Modifier = Modifier
+    onHomePressed: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier) {
         for (navItem in NavOptions.values()) {
@@ -28,19 +29,26 @@ fun NavigationDrawerContent(
                 label = {
                     Text(
                         text = navItem.name,
-                        modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.drawer_padding_header))
+                        modifier = Modifier.padding(horizontal = dimensionResource(R.dimen.drawer_padding_header)),
                     )
                 },
                 icon = {
                     Icon(
                         imageVector = navItem.icon,
-                        contentDescription = navItem.name
+                        contentDescription = navItem.name,
                     )
                 },
-//                colors = NavigationDrawerItemDefaults.colors(
-//                    unselectedContainerColor = Color.Transparent
-//                ),
-                onClick = { onTabPressed(navItem.name) }
+                colors =
+                    NavigationDrawerItemDefaults.colors(
+                        unselectedContainerColor = Color.Transparent,
+                    ),
+                onClick = {
+                    if (navItem.name == NavOptions.Home.name) {
+                        onHomePressed()
+                    } else {
+                        onTabPressed(navItem.name)
+                    }
+                },
             )
         }
     }

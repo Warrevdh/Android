@@ -23,9 +23,10 @@ fun CreateSlider(
     Column {
         Text(
             text = text + ": %.1f".format(sliderValue),
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 32.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 32.dp),
             Color.Black,
         )
         Slider(
@@ -33,8 +34,9 @@ fun CreateSlider(
             onValueChange = onValueChange,
             valueRange = 0f..1f,
             steps = 9,
-            modifier = Modifier
-                .padding(horizontal = 32.dp),
+            modifier =
+                Modifier
+                    .padding(horizontal = 32.dp),
         )
     }
 }
@@ -49,24 +51,27 @@ fun CreateRangedSlider(
     Column {
         Text(
             text = "Min. " + text + ": %.1f".format(sliderValue.start),
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .padding(top = 32.dp),
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(top = 32.dp),
             color = Color.Black,
         )
         Text(
             text = "Max. " + text + ": %.1f".format(sliderValue.endInclusive),
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally),
-            color = Color.Black, 
+            modifier =
+                Modifier
+                    .align(Alignment.CenterHorizontally),
+            color = Color.Black,
         )
         RangeSlider(
             value = sliderValue,
             onValueChange = onValueChange,
             valueRange = 0f..1f,
             steps = 9,
-            modifier = Modifier
-                .padding(horizontal = 32.dp),
+            modifier =
+                Modifier
+                    .padding(horizontal = 32.dp),
         )
     }
 }

@@ -44,19 +44,21 @@ fun ActivityItem(
     var expanded by remember { mutableStateOf(false) }
     val context = LocalContext.current
     ElevatedCard(
-        modifier = modifier
-            .padding(horizontal = 8.dp, vertical = 4.dp)
-            .fillMaxWidth()
-            .clickable { expanded = !expanded },
+        modifier =
+            modifier
+                .padding(horizontal = 8.dp, vertical = 4.dp)
+                .fillMaxWidth()
+                .clickable { expanded = !expanded },
     ) {
         val enterTransition = fadeIn(animationSpec = tween(300))
         val exitTransition = fadeOut(animationSpec = tween(300))
         Row(modifier = Modifier.fillMaxWidth()) {
             Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(16.dp)
-                    .fillMaxWidth(),
+                modifier =
+                    Modifier
+                        .weight(1f)
+                        .padding(16.dp)
+                        .fillMaxWidth(),
             ) {
                 Text(text = activity.activity, fontWeight = FontWeight.Bold)
                 Text(text = "Type: ${activity.type}")
@@ -72,11 +74,12 @@ fun ActivityItem(
                         Text(text = "Accessibility: ${activity.accessibility}")
                         if (activity.link.isNotEmpty()) {
                             Text(
-                                modifier = Modifier.clickable {
-                                    val openUrl = Intent(Intent.ACTION_VIEW)
-                                    openUrl.data = Uri.parse(activity.link)
-                                    ContextCompat.startActivity(context, openUrl, Bundle())
-                                },
+                                modifier =
+                                    Modifier.clickable {
+                                        val openUrl = Intent(Intent.ACTION_VIEW)
+                                        openUrl.data = Uri.parse(activity.link)
+                                        ContextCompat.startActivity(context, openUrl, Bundle())
+                                    },
                                 color = Color.Blue,
                                 textDecoration = TextDecoration.Underline,
                                 text = activity.link,
@@ -91,9 +94,10 @@ fun ActivityItem(
                     verticalArrangement = Arrangement.Center,
                 ) {
                     IconButton(
-                        colors = IconButtonDefaults.iconButtonColors(
-                            contentColor = Color.Red,
-                        ),
+                        colors =
+                            IconButtonDefaults.iconButtonColors(
+                                contentColor = Color.Red,
+                            ),
                         onClick = {
                             showConfirmation()
                         },

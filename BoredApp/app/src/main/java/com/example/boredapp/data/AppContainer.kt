@@ -14,10 +14,11 @@ class DefaultContainer(
     private val context: Context,
 ) : AppContainer {
     private val baseUrl = "https://www.boredapi.com/api/"
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(baseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    private val retrofit =
+        Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
 
     private val retrofitService: ActivityApiService by lazy {
         retrofit.create(ActivityApiService::class.java)

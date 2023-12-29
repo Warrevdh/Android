@@ -25,14 +25,14 @@ class GenerateActivityViewModel(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(GenerateActivityState())
     val uiState: StateFlow<GenerateActivityState> = _uiState.asStateFlow()
-    
+
     var activityApiState: ActivityApiState by mutableStateOf(ActivityApiState.Waiting)
         private set
-    
+
     fun resetApiState() {
         activityApiState = ActivityApiState.Waiting
     }
-    
+
     fun resetActivity() {
         _uiState.update { GenerateActivityState() }
         activityApiState = ActivityApiState.Waiting
@@ -65,7 +65,7 @@ class GenerateActivityViewModel(
             }
         }
     }
-    
+
     fun getApiActivityByType(type: String) {
         viewModelScope.launch {
             try {
@@ -99,7 +99,7 @@ class GenerateActivityViewModel(
             }
         }
     }
-    
+
     fun getApiActivityByParticipants(participants: Int) {
         viewModelScope.launch {
             try {
@@ -116,7 +116,7 @@ class GenerateActivityViewModel(
             }
         }
     }
-    
+
     fun getApiActivityByPrice(price: Float) {
         viewModelScope.launch {
             try {
@@ -133,8 +133,11 @@ class GenerateActivityViewModel(
             }
         }
     }
-    
-    fun getApiActivityByPriceRange(minPrice: Float, maxPrice: Float) {
+
+    fun getApiActivityByPriceRange(
+        minPrice: Float,
+        maxPrice: Float,
+    ) {
         viewModelScope.launch {
             try {
                 activityApiState = ActivityApiState.Loading
@@ -150,8 +153,11 @@ class GenerateActivityViewModel(
             }
         }
     }
-    
-    fun getApiActivityByAccessibilityRange(minAccessibility: Float, maxAccessibility: Float) {
+
+    fun getApiActivityByAccessibilityRange(
+        minAccessibility: Float,
+        maxAccessibility: Float,
+    ) {
         viewModelScope.launch {
             try {
                 activityApiState = ActivityApiState.Loading
@@ -170,15 +176,16 @@ class GenerateActivityViewModel(
 
     companion object {
         private var Instance: GenerateActivityViewModel? = null
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                if (Instance == null) {
-                    val application = (this[APPLICATION_KEY] as BoredApplication)
-                    val activityRepository = application.container.activityRepository
-                    Instance = GenerateActivityViewModel(activityRepository = activityRepository)
+        val Factory: ViewModelProvider.Factory =
+            viewModelFactory {
+                initializer {
+                    if (Instance == null) {
+                        val application = (this[APPLICATION_KEY] as BoredApplication)
+                        val activityRepository = application.container.activityRepository
+                        Instance = GenerateActivityViewModel(activityRepository = activityRepository)
+                    }
+                    Instance!!
                 }
-                Instance!!
             }
-        }
     }
 }

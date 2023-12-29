@@ -21,9 +21,9 @@ import com.example.boredapp.R
 import com.example.boredapp.ui.components.MyBottomAppBar
 import com.example.boredapp.ui.components.MyTopAppBar
 import com.example.boredapp.ui.navigation.BoredNavigationRail
+import com.example.boredapp.ui.navigation.NavComponent
 import com.example.boredapp.ui.navigation.NavOptions
 import com.example.boredapp.ui.navigation.NavigationDrawerContent
-import com.example.boredapp.ui.navigation.navComponent
 import com.example.boredapp.ui.navigation.NavigationType
 
 enum class Destinations {
@@ -34,23 +34,20 @@ enum class Destinations {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BoredApp(navigationType: NavigationType, navController: NavHostController = rememberNavController()) {
+fun BoredApp(
+    navigationType: NavigationType,
+    navController: NavHostController = rememberNavController(),
+) {
     val backStackEntry by navController.currentBackStackEntryAsState()
 
     val canNavigateBack = navController.previousBackStackEntry != null
     val navigateUp: () -> Unit = { navController.navigateUp() }
-    val goHome: () -> Unit = {
-        navController.popBackStack(
-            NavOptions.Home.name,
-            inclusive = false,
-        )
-    }
-    val goToCreate = { navController.navigate(NavOptions.Create.name)  {launchSingleTop = true} }
-    val goToProfile = { navController.navigate(NavOptions.Profile.name)  {launchSingleTop = true} }
-
-    val currentScreenTitle = NavOptions.valueOf(
-        backStackEntry?.destination?.route ?: NavOptions.Home.name,
-    ).title
+    val onHomePressed: () -> Unit = { navController.popBackStack(NavOptions.Home.name, inclusive = false) }
+    val onTabPressed: (String) -> Unit = { node: String -> navController.navigate(node) { launchSingleTop = true } }
+    val currentScreenTitle =
+        NavOptions.valueOf(
+            backStackEntry?.destination?.route ?: NavOptions.Home.name,
+        ).title
 
     when (navigationType) {
         NavigationType.BOTTOM_NAVIGATION -> {
@@ -64,13 +61,13 @@ fun BoredApp(navigationType: NavigationType, navController: NavHostController = 
                 },
                 bottomBar = {
                     MyBottomAppBar(
-                        goHome,
-                        goToCreate,
-                        goToProfile,
+                        selectedDestination = navController.currentDestination,
+                        onTabPressed,
+                        onHomePressed,
                     )
                 },
             ) { innerPadding ->
-                navComponent(navController = navController, modifier = Modifier.padding(innerPadding))
+                NavComponent(navController = navController, modifier = Modifier.padding(innerPadding))
             }
         }
         NavigationType.PERMANENT_NAVIGATION_DRAWER -> {
@@ -78,11 +75,13 @@ fun BoredApp(navigationType: NavigationType, navController: NavHostController = 
                 PermanentDrawerSheet(Modifier.width(dimensionResource(R.dimen.drawer_width))) {
                     NavigationDrawerContent(
                         selectedDestination = navController.currentDestination,
-                        onTabPressed = {node: String -> navController.navigate(node)},
-                        modifier = Modifier
-                            .wrapContentWidth()
-                            .fillMaxHeight()
-                            .padding(dimensionResource(R.dimen.drawer_padding_content))
+                        onTabPressed,
+                        onHomePressed,
+                        modifier =
+                            Modifier
+                                .wrapContentWidth()
+                                .fillMaxHeight()
+                                .padding(dimensionResource(R.dimen.drawer_padding_content)),
                     )
                 }
             }) {
@@ -95,7 +94,7 @@ fun BoredApp(navigationType: NavigationType, navController: NavHostController = 
                         )
                     },
                 ) { innerPadding ->
-                    navComponent(navController = navController, modifier = Modifier.padding(innerPadding))
+                    NavComponent(navController = navController, modifier = Modifier.padding(innerPadding))
                 }
             }
         }
@@ -104,7 +103,8 @@ fun BoredApp(navigationType: NavigationType, navController: NavHostController = 
                 AnimatedVisibility(visible = navigationType == NavigationType.NAVIGATION_RAIL) {
                     BoredNavigationRail(
                         selectedDestination = navController.currentDestination,
-                        onTabPressed = { node: String -> navController.navigate(node) },
+                        onTabPressed,
+                        onHomePressed,
                     )
                 }
                 Scaffold(
@@ -116,7 +116,7 @@ fun BoredApp(navigationType: NavigationType, navController: NavHostController = 
                         )
                     },
                 ) { innerPadding ->
-                    navComponent(navController = navController, modifier = Modifier.padding(innerPadding))
+                    NavComponent(navController = navController, modifier = Modifier.padding(innerPadding))
                 }
             }
         }

@@ -36,7 +36,7 @@ fun ProfileScreen(
     var deleteAll by remember { mutableStateOf(false) }
     var confirmedItem: Activity? by remember { mutableStateOf(null) }
     var emptyList by remember { mutableStateOf(false) }
-    
+
     LaunchedEffect(savedActivitiesState) {
         emptyList = savedActivitiesState.activities.isEmpty()
     }
@@ -60,9 +60,10 @@ fun ProfileScreen(
                             onClick = {
                                 deleteAll = true
                             },
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(8.dp),
+                            modifier =
+                                Modifier
+                                    .fillMaxWidth()
+                                    .padding(8.dp),
                         ) {
                             Text(text = "Verwijder alle activiteiten")
                         }
@@ -92,7 +93,7 @@ fun ProfileScreen(
                                 },
                                 title = "Verwijder activiteit",
                                 text = "Weet je zeker dat je deze activiteit wilt verwijderen?",
-                            ) 
+                            )
                         }
                     }
                 }
@@ -102,7 +103,7 @@ fun ProfileScreen(
             }
         }
     }
-    
+
     if (deleteAll) {
         Dialog(
             closeDialog = {
@@ -114,6 +115,6 @@ fun ProfileScreen(
             },
             title = "Verwijder alle activiteiten",
             text = "Weet je zeker dat je alle activiteiten wilt verwijderen?",
-        ) 
+        )
     }
 }

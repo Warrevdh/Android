@@ -6,7 +6,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun Dialog(closeDialog: () -> Unit, onConfirm: () -> Unit, title: String, text: String) {
+fun Dialog(
+    closeDialog: () -> Unit,
+    onConfirm: () -> Unit,
+    title: String,
+    text: String,
+) {
     AlertDialog(
         onDismissRequest = closeDialog,
         confirmButton = {

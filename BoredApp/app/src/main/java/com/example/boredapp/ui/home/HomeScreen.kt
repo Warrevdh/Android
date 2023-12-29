@@ -15,11 +15,11 @@ import androidx.compose.ui.unit.sp
 fun HomeScreen(modifier: Modifier = Modifier) {
     Box(modifier = modifier) {
         Column(
-            modifier = modifier.fillMaxWidth(), 
+            modifier = modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = "Bored app", 
+                text = "Bored app",
                 fontWeight = FontWeight.Bold,
                 fontSize = 32.sp,
             )

@@ -29,7 +29,7 @@ fun CreateActivityItem(
 ) {
     val uiActivityState by generateActivityViewModel.uiState.collectAsState()
     val activityApiState = generateActivityViewModel.activityApiState
-    
+
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,10 +58,11 @@ fun CreateActivityItem(
             }
         }
         Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth()
-                .padding(bottom = 8.dp), 
+            modifier =
+                Modifier
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {

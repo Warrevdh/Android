@@ -1,43 +1,48 @@
 package com.example.boredapp.ui.components
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Create
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavDestination
+import com.example.boredapp.ui.navigation.NavOptions
 
 @Composable
 fun MyBottomAppBar(
-    onHome: () -> Unit,
-    onCreate: () -> Unit,
-    onProfile: () -> Unit,
+    selectedDestination: NavDestination?,
+    onTabPressed: (String) -> Unit,
+    onHomePressed: () -> Unit,
 ) {
-    BottomAppBar(
-        containerColor = MaterialTheme.colorScheme.primaryContainer,
-        contentColor = MaterialTheme.colorScheme.primary,
-        actions = {
-            IconButton(onClick = onHome) {
-                Icon(
-                    Icons.Filled.Home,
-                    contentDescription = "Home",
-                )
-            }
-            IconButton(onClick = onCreate) {
-                Icon(
-                    Icons.Filled.Create,
-                    contentDescription = "Create",
-                )
-            }
-            IconButton(onClick = onProfile) {
-                Icon(
-                    Icons.Filled.AccountCircle,
-                    contentDescription = "About",
-                )
-            }
-        },
-    )
+    NavigationBar {
+        for (navItem in NavOptions.values()) {
+            NavigationBarItem(
+                selected = selectedDestination?.route == navItem.name,
+                onClick =
+                    {
+                        if (navItem.name == NavOptions.Home.name) {
+                            onHomePressed()
+                        } else {
+                            onTabPressed(navItem.name)
+                        }
+                    },
+                icon = {
+                    Icon(
+                        imageVector = navItem.icon,
+                        contentDescription = navItem.name,
+                    )
+                },
+                label = { Text(text = navItem.name) },
+                colors =
+                    NavigationBarItemDefaults.colors(
+                        selectedIconColor = Color.Black,
+                        selectedTextColor = Color.Black,
+                        indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
+                    ),
+            )
+        }
+    }
 }

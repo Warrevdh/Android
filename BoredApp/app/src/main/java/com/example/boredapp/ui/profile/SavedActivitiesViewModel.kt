@@ -23,14 +23,14 @@ class SavedActivitiesViewModel(
     private val activityRepository: ActivityRepository,
 ) : ViewModel() {
     lateinit var savedActivityList: StateFlow<SavedActivitiesState>
-    
+
     var activityListState: ActivityListState by mutableStateOf(ActivityListState.Loading)
         private set
-    
+
     init {
         getActivities()
     }
-    
+
     fun clearList() {
         try {
             viewModelScope.launch {
@@ -41,7 +41,7 @@ class SavedActivitiesViewModel(
             activityListState = ActivityListState.Error
         }
     }
-    
+
     fun deleteActivity(activity: Activity) {
         try {
             viewModelScope.launch {
@@ -52,33 +52,36 @@ class SavedActivitiesViewModel(
             activityListState = ActivityListState.Error
         }
     }
-    
+
     private fun getActivities() {
         activityListState = ActivityListState.Loading
         try {
-            savedActivityList = activityRepository.getAllActivities().map { 
-                SavedActivitiesState(activities = it)
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(),
-                initialValue = SavedActivitiesState(activities = emptyList()),
-            )
+            savedActivityList =
+                activityRepository.getAllActivities().map {
+                    SavedActivitiesState(activities = it)
+                }.stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(),
+                    initialValue = SavedActivitiesState(activities = emptyList()),
+                )
             activityListState = ActivityListState.Success
         } catch (e: IOException) {
             activityListState = ActivityListState.Error
         }
     }
+
     companion object {
         private var Instance: SavedActivitiesViewModel? = null
-        val Factory: ViewModelProvider.Factory = viewModelFactory { 
-            initializer { 
-                if (Instance == null) {
-                    val application = (this[APPLICATION_KEY] as BoredApplication)
-                    val activityRepository = application.container.activityRepository
-                    Instance = SavedActivitiesViewModel(activityRepository = activityRepository)
+        val Factory: ViewModelProvider.Factory =
+            viewModelFactory {
+                initializer {
+                    if (Instance == null) {
+                        val application = (this[APPLICATION_KEY] as BoredApplication)
+                        val activityRepository = application.container.activityRepository
+                        Instance = SavedActivitiesViewModel(activityRepository = activityRepository)
+                    }
+                    Instance!!
                 }
-                Instance!!
             }
-        }
     }
 }

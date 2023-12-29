@@ -11,16 +11,32 @@ import kotlinx.coroutines.flow.map
 
 interface ActivityRepository {
     suspend fun insertActivity(activity: Activity)
+
     fun getAllActivities(): Flow<List<Activity>>
+
     suspend fun deleteActivity(activity: Activity)
+
     suspend fun deleteAllActivities()
+
     suspend fun generateActivity(): ApiActivity
+
     suspend fun getActivityByType(type: String): ApiActivity
+
     suspend fun getActivityByParticipants(participants: Int): ApiActivity
+
     suspend fun getActivityByPrice(price: Float): ApiActivity
+
     suspend fun getActivityByAccessibility(accessibility: Float): ApiActivity
-    suspend fun getActivityByPriceRange(minPrice: Float, maxPrice: Float): ApiActivity
-    suspend fun getActivityByAccessibilityRange(minAccessibility: Float, maxAccessibility: Float): ApiActivity
+
+    suspend fun getActivityByPriceRange(
+        minPrice: Float,
+        maxPrice: Float,
+    ): ApiActivity
+
+    suspend fun getActivityByAccessibilityRange(
+        minAccessibility: Float,
+        maxAccessibility: Float,
+    ): ApiActivity
 }
 
 class CachingActivityRepository(
@@ -36,40 +52,46 @@ class CachingActivityRepository(
             it.asDomainActivities()
         }
     }
-    
+
     override suspend fun deleteActivity(activity: Activity) {
         activityDao.deleteActivity(activity.asDbActivity())
     }
-    
+
     override suspend fun deleteAllActivities() {
         activityDao.deleteAllActivities()
     }
-    
+
     override suspend fun generateActivity(): ApiActivity {
         return activityApiService.getActivity()
     }
-    
+
     override suspend fun getActivityByType(type: String): ApiActivity {
         return activityApiService.getActivityByType(type)
     }
-    
+
     override suspend fun getActivityByParticipants(participants: Int): ApiActivity {
         return activityApiService.getActivityByParticipants(participants)
     }
-    
+
     override suspend fun getActivityByPrice(price: Float): ApiActivity {
         return activityApiService.getActivityByPrice(price)
     }
-    
+
     override suspend fun getActivityByAccessibility(accessibility: Float): ApiActivity {
         return activityApiService.getActivityByAccessibility(accessibility)
     }
-    
-    override suspend fun getActivityByPriceRange(minPrice: Float, maxPrice: Float): ApiActivity {
+
+    override suspend fun getActivityByPriceRange(
+        minPrice: Float,
+        maxPrice: Float,
+    ): ApiActivity {
         return activityApiService.getActivityByPriceRange(minPrice, maxPrice)
     }
-    
-    override suspend fun getActivityByAccessibilityRange(minAccessibility: Float, maxAccessibility: Float): ApiActivity {
+
+    override suspend fun getActivityByAccessibilityRange(
+        minAccessibility: Float,
+        maxAccessibility: Float,
+    ): ApiActivity {
         return activityApiService.getActivityByAccessibilityRange(minAccessibility, maxAccessibility)
     }
 }
