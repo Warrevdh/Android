@@ -74,7 +74,7 @@ fun ProfileScreen(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center,
                     ) {
-                        Text(text = "Je hebt nog geen activiteiten opgeslagen")
+                        Text(text = "No saved activities")
                     }
                 } else {
                     // Display the list of saved activities
@@ -89,7 +89,7 @@ fun ProfileScreen(
                                     .fillMaxWidth()
                                     .padding(8.dp),
                         ) {
-                            Text(text = "Verwijder alle activiteiten")
+                            Text(text = "Delete all activities")
                         }
 
                         // LazyColumn to display the list of saved activities
@@ -122,8 +122,8 @@ fun ProfileScreen(
                                     deleteOne = false
                                     confirmedItem = null
                                 },
-                                title = "Verwijder activiteit",
-                                text = "Weet je zeker dat je deze activiteit wilt verwijderen?",
+                                title = "Delete activity",
+                                text = "Are you sure you want to delete this activity?",
                             )
                         }
                     }
@@ -149,8 +149,8 @@ fun ProfileScreen(
                 activityViewModel.clearList()
                 deleteAll = false
             },
-            title = "Verwijder alle activiteiten",
-            text = "Weet je zeker dat je alle activiteiten wilt verwijderen?",
+            title = "Delete all activities",
+            text = "Are you sure you want to delete all activities?",
         )
     }
 }

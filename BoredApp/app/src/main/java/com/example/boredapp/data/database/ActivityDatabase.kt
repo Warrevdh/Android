@@ -10,7 +10,7 @@ import androidx.room.RoomDatabase
  *
  * This class defines the database configuration, including the entities and version.
  */
-@Database(entities = [DbActivity::class], version = 1)
+@Database(entities = [DbActivity::class], version = 1, exportSchema = false)
 abstract class ActivityDatabase : RoomDatabase() {
     /**
      * Provides access to the Data Access Object (DAO) for performing CRUD operations on activities.

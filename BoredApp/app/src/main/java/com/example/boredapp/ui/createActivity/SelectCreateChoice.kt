@@ -51,12 +51,13 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
     // List of tabs for different criteria
     val tabs =
         listOf(
+            "Random",
             "Type",
-            "Deelnemers",
-            "Prijs",
-            "Toegankelijkheid",
-            "Prijsrange",
-            "Toegankelijkheid range",
+            "Participants",
+            "Price",
+            "Accessibility",
+            "Price range",
+            "Accessibility range",
         )
 
     // Reset API state when the selected tab changes
@@ -85,6 +86,17 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
         // Display UI components based on the selected tab
         when (selectedTab) {
             0 -> {
+                // Random criteria
+                CreateActivityItem(
+                    generateActivityViewModel = generateActivityViewModel,
+                    waitingComposable = {
+                        Text(text = "Press the button to generate a random activity")
+                    },
+                ) {
+                    generateActivityViewModel.getApiActivity()
+                }
+            }
+            1 -> {
                 // Type criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
@@ -101,7 +113,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     }
                 }
             }
-            1 -> {
+            2 -> {
                 // Participants criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
@@ -122,7 +134,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     }
                 }
             }
-            2 -> {
+            3 -> {
                 // Price criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
@@ -133,7 +145,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     generateActivityViewModel.getApiActivityByPrice(priceSliderValue)
                 }
             }
-            3 -> {
+            4 -> {
                 // Accessibility criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
@@ -148,7 +160,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     generateActivityViewModel.getApiActivityByAccessibility(accSliderValue)
                 }
             }
-            4 -> {
+            5 -> {
                 // Price range criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
@@ -163,7 +175,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     generateActivityViewModel.getApiActivityByPriceRange(priceRangeSliderValue.start, priceRangeSliderValue.endInclusive)
                 }
             }
-            5 -> {
+            6 -> {
                 // Accessibility range criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
