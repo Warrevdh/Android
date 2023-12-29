@@ -12,6 +12,13 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 
+/**
+ * Composable function representing a custom top app bar with optional navigation back button.
+ *
+ * @param canNavigateBack Indicates whether the navigation back button should be visible.
+ * @param navigateUp Callback function to be executed when the navigation back button is pressed.
+ * @param currentScreenTitle The resource ID for the title of the current screen.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopAppBar(
@@ -33,7 +40,7 @@ fun MyTopAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "navigate back",
+                        contentDescription = "Navigate Back",
                     )
                 }
             }

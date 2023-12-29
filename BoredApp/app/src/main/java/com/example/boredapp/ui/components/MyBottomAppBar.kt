@@ -11,6 +11,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import com.example.boredapp.ui.navigation.NavOptions
 
+/**
+ * Composable function representing a custom bottom app bar with navigation items.
+ *
+ * @param selectedDestination The currently selected navigation destination.
+ * @param onTabPressed Callback function to be executed when a navigation tab is pressed.
+ * @param onHomePressed Callback function to be executed when the home button is pressed.
+ */
 @Composable
 fun MyBottomAppBar(
     selectedDestination: NavDestination?,

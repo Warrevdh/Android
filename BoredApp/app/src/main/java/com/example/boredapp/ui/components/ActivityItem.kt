@@ -34,6 +34,14 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import com.example.boredapp.model.Activity
 
+/**
+ * Composable function representing an item in the list of activities.
+ *
+ * @param activity The [Activity] object to display in the item.
+ * @param modifier Modifier for styling and layout customization.
+ * @param inList Indicates whether the item is displayed in a list. If true, a delete button is shown.
+ * @param showConfirmation Callback function to be executed when the delete button is clicked.
+ */
 @Composable
 fun ActivityItem(
     activity: Activity,
@@ -104,7 +112,7 @@ fun ActivityItem(
                     ) {
                         Icon(
                             Icons.Filled.Delete,
-                            contentDescription = "Save",
+                            contentDescription = "Delete",
                         )
                     }
                 }

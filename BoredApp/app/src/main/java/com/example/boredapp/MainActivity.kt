@@ -14,7 +14,19 @@ import com.example.boredapp.ui.BoredApp
 import com.example.boredapp.ui.navigation.NavigationType
 import com.example.boredapp.ui.theme.BoredAppTheme
 
+/**
+ * The [MainActivity] class represents the main activity of the Bored app.
+ *
+ * It extends [ComponentActivity] and serves as the entry point for the Android application.
+ * The activity sets up the user interface based on the window size classification.
+ */
 class MainActivity : ComponentActivity() {
+    /**
+     * Called when the activity is first created. It sets up the UI using [setContent] and
+     * chooses the appropriate UI layout based on the window size classification.
+     *
+     * @param savedInstanceState The saved instance state, if any.
+     */
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +36,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background,
                 ) {
+                    // Calculate the window size class using the experimental API
                     val windowSize = calculateWindowSizeClass(activity = this)
 
+                    // Choose the appropriate UI layout based on the window size classification
                     when (windowSize.widthSizeClass) {
                         WindowWidthSizeClass.Compact -> {
                             BoredApp(navigationType = NavigationType.BOTTOM_NAVIGATION)

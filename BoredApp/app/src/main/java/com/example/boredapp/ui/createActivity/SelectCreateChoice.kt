@@ -28,9 +28,15 @@ import com.example.boredapp.ui.createActivity.components.CreateRangedSlider
 import com.example.boredapp.ui.createActivity.components.CreateSlider
 import com.example.boredapp.ui.createActivity.components.Dropdown
 
+/**
+ * Composable function for selecting and creating activities based on different criteria.
+ *
+ * @param generateActivityViewModel The [GenerateActivityViewModel] used for managing activity generation.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = viewModel(factory = GenerateActivityViewModel.Factory)) {
+    // State variables for UI components
     var selectedOptionText by remember { mutableStateOf("") }
     var amountOfParticipants by remember { mutableStateOf("") }
     var priceSliderValue by remember { mutableFloatStateOf(0f) }
@@ -38,7 +44,11 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
     var priceRangeSliderValue by remember { mutableStateOf(0f..1f) }
     var accRangeSliderValue by remember { mutableStateOf(0f..1f) }
     var selectedTab by remember { mutableIntStateOf(0) }
+
+    // Context for displaying toasts
     val context = LocalContext.current
+
+    // List of tabs for different criteria
     val tabs =
         listOf(
             "Type",
@@ -49,29 +59,37 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
             "Toegankelijkheid range",
         )
 
+    // Reset API state when the selected tab changes
     LaunchedEffect(selectedTab) {
         generateActivityViewModel.resetApiState()
     }
 
+    // Main column for UI layout
     Column {
+        // Scrollable tabs for different criteria
         ScrollableTabRow(selectedTabIndex = selectedTab) {
             tabs.forEachIndexed { tabIndex, tab ->
-                Tab(selected = selectedTab == tabIndex, onClick = { selectedTab = tabIndex }, text = {
-                    Text(
-                        text = tab,
-                    )
-                })
+                Tab(
+                    selected = selectedTab == tabIndex,
+                    onClick = { selectedTab = tabIndex },
+                    text = {
+                        Text(text = tab)
+                    },
+                )
             }
         }
+
+        // Vertical spacing
         Spacer(modifier = Modifier.height(16.dp))
+
+        // Display UI components based on the selected tab
         when (selectedTab) {
             0 -> {
+                // Type criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
-                        Dropdown(
-                            selectedOptionText = selectedOptionText,
-                        ) {
+                        Dropdown(selectedOptionText = selectedOptionText) {
                             selectedOptionText = it
                         }
                     },
@@ -84,6 +102,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                 }
             }
             1 -> {
+                // Participants criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
@@ -104,6 +123,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                 }
             }
             2 -> {
+                // Price criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
@@ -114,6 +134,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                 }
             }
             3 -> {
+                // Accessibility criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
@@ -128,6 +149,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                 }
             }
             4 -> {
+                // Price range criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
@@ -142,6 +164,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                 }
             }
             5 -> {
+                // Accessibility range criteria
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {

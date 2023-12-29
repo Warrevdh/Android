@@ -20,24 +20,49 @@ import kotlinx.coroutines.launch
 import java.io.IOException
 import java.net.SocketTimeoutException
 
+/**
+ * ViewModel responsible for handling the generation and retrieval of activity data.
+ *
+ * @property activityRepository The repository providing access to activity-related data.
+ */
 class GenerateActivityViewModel(
     private val activityRepository: ActivityRepository,
 ) : ViewModel() {
+    /**
+     * Mutable state flow representing the UI state for generating an activity.
+     */
     private val _uiState = MutableStateFlow(GenerateActivityState())
+
+    /**
+     * Immutable state flow representing the UI state for generating an activity.
+     */
     val uiState: StateFlow<GenerateActivityState> = _uiState.asStateFlow()
 
+    /**
+     * Property representing the current state of the activity API response.
+     */
     var activityApiState: ActivityApiState by mutableStateOf(ActivityApiState.Waiting)
         private set
 
+    /**
+     * Resets the activity API state to [ActivityApiState.Waiting].
+     */
     fun resetApiState() {
         activityApiState = ActivityApiState.Waiting
     }
 
+    /**
+     * Resets the generated activity and sets the activity API state to [ActivityApiState.Waiting].
+     */
     fun resetActivity() {
         _uiState.update { GenerateActivityState() }
         activityApiState = ActivityApiState.Waiting
     }
 
+    /**
+     * Saves the currently generated activity to the repository.
+     * Resets the generated activity afterward.
+     */
     fun saveActivity() {
         viewModelScope.launch {
             try {
@@ -48,6 +73,8 @@ class GenerateActivityViewModel(
             }
         }
     }
+
+    // Functions for retrieving activities from the activity repository based on different criteria
 
     fun getApiActivity() {
         viewModelScope.launch {
@@ -174,8 +201,15 @@ class GenerateActivityViewModel(
         }
     }
 
+    /**
+     * Factory companion object for creating instances of [GenerateActivityViewModel].
+     */
     companion object {
         private var Instance: GenerateActivityViewModel? = null
+
+        /**
+         * Factory for creating instances of [GenerateActivityViewModel].
+         */
         val Factory: ViewModelProvider.Factory =
             viewModelFactory {
                 initializer {

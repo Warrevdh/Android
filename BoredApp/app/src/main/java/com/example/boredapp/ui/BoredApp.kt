@@ -32,23 +32,38 @@ enum class Destinations {
     Profile,
 }
 
+/**
+ * BoredApp is the main entry point for the Bored app, providing a configurable navigation system
+ * based on the specified [navigationType].
+ *
+ * @param navigationType The type of navigation to be used, such as [NavigationType.BOTTOM_NAVIGATION],
+ * [NavigationType.NAVIGATION_RAIL], or [NavigationType.PERMANENT_NAVIGATION_DRAWER].
+ * @param navController The [NavHostController] responsible for navigation within the app.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BoredApp(
     navigationType: NavigationType,
     navController: NavHostController = rememberNavController(),
 ) {
+    // Retrieve the current back stack entry
     val backStackEntry by navController.currentBackStackEntryAsState()
 
+    // Determine if it's possible to navigate back
     val canNavigateBack = navController.previousBackStackEntry != null
+
+    // Navigation actions
     val navigateUp: () -> Unit = { navController.navigateUp() }
     val onHomePressed: () -> Unit = { navController.popBackStack(NavOptions.Home.name, inclusive = false) }
     val onTabPressed: (String) -> Unit = { node: String -> navController.navigate(node) { launchSingleTop = true } }
+
+    // Extract the current screen title from the back stack entry
     val currentScreenTitle =
         NavOptions.valueOf(
             backStackEntry?.destination?.route ?: NavOptions.Home.name,
         ).title
 
+    // Compose the UI based on the specified navigation type
     when (navigationType) {
         NavigationType.BOTTOM_NAVIGATION -> {
             Scaffold(
@@ -100,6 +115,7 @@ fun BoredApp(
         }
         else -> {
             Row {
+                // Display navigation rail if the type is NAVIGATION_RAIL
                 AnimatedVisibility(visible = navigationType == NavigationType.NAVIGATION_RAIL) {
                     BoredNavigationRail(
                         selectedDestination = navController.currentDestination,
@@ -107,6 +123,7 @@ fun BoredApp(
                         onHomePressed,
                     )
                 }
+                // Content area with top app bar and navigation
                 Scaffold(
                     topBar = {
                         MyTopAppBar(

@@ -14,6 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
+/**
+ * Composable function representing a slider for a single value.
+ *
+ * @param text The label or description associated with the slider.
+ * @param sliderValue The current value of the slider.
+ * @param onValueChange Callback function to be executed when the slider value changes.
+ */
 @Composable
 fun CreateSlider(
     text: String,
@@ -21,14 +28,16 @@ fun CreateSlider(
     onValueChange: (Float) -> Unit,
 ) {
     Column {
+        // Display the current value of the slider
         Text(
-            text = text + ": %.1f".format(sliderValue),
+            text = "$text: %.1f".format(sliderValue),
             modifier =
                 Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 32.dp),
             Color.Black,
         )
+        // Slider for selecting a single value
         Slider(
             value = sliderValue,
             onValueChange = onValueChange,
@@ -41,6 +50,13 @@ fun CreateSlider(
     }
 }
 
+/**
+ * Composable function representing a ranged slider with minimum and maximum values.
+ *
+ * @param text The label or description associated with the ranged slider.
+ * @param sliderValue The current range of values selected on the slider.
+ * @param onValueChange Callback function to be executed when the range slider values change.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CreateRangedSlider(
@@ -49,21 +65,24 @@ fun CreateRangedSlider(
     onValueChange: (ClosedFloatingPointRange<Float>) -> Unit,
 ) {
     Column {
+        // Display the minimum value of the range slider
         Text(
-            text = "Min. " + text + ": %.1f".format(sliderValue.start),
+            text = "Min. $text: %.1f".format(sliderValue.start),
             modifier =
                 Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 32.dp),
             color = Color.Black,
         )
+        // Display the maximum value of the range slider
         Text(
-            text = "Max. " + text + ": %.1f".format(sliderValue.endInclusive),
+            text = "Max. $text: %.1f".format(sliderValue.endInclusive),
             modifier =
                 Modifier
                     .align(Alignment.CenterHorizontally),
             color = Color.Black,
         )
+        // RangeSlider for selecting a range of values
         RangeSlider(
             value = sliderValue,
             onValueChange = onValueChange,

@@ -20,6 +20,14 @@ import com.example.boredapp.ui.components.ActivityItem
 import com.example.boredapp.ui.createActivity.ActivityApiState
 import com.example.boredapp.ui.createActivity.GenerateActivityViewModel
 
+/**
+ * Composable function representing an item for creating and displaying an activity.
+ *
+ * @param modifier Modifier for styling and layout customization.
+ * @param generateActivityViewModel ViewModel for handling the generation of activities.
+ * @param waitingComposable Composable function to display content while waiting for the activity.
+ * @param onGenerate Callback function to be executed when the "Generate" button is pressed.
+ */
 @Composable
 fun CreateActivityItem(
     modifier: Modifier = Modifier,

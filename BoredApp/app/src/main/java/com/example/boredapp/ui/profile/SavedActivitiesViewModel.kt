@@ -19,11 +19,23 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.io.IOException
 
+/**
+ * ViewModel responsible for managing saved activities and their state.
+ *
+ * @param activityRepository The repository providing access to activity-related operations.
+ */
 class SavedActivitiesViewModel(
     private val activityRepository: ActivityRepository,
 ) : ViewModel() {
+    /**
+     * State flow representing the current state of saved activities.
+     */
     lateinit var savedActivityList: StateFlow<SavedActivitiesState>
 
+    /**
+     * Mutable state representing the state of the activity list.
+     * Initialized to [ActivityListState.Loading].
+     */
     var activityListState: ActivityListState by mutableStateOf(ActivityListState.Loading)
         private set
 
@@ -31,6 +43,9 @@ class SavedActivitiesViewModel(
         getActivities()
     }
 
+    /**
+     * Clears the list of saved activities.
+     */
     fun clearList() {
         try {
             viewModelScope.launch {
@@ -42,6 +57,11 @@ class SavedActivitiesViewModel(
         }
     }
 
+    /**
+     * Deletes a specific saved activity.
+     *
+     * @param activity The activity to be deleted.
+     */
     fun deleteActivity(activity: Activity) {
         try {
             viewModelScope.launch {
@@ -72,6 +92,10 @@ class SavedActivitiesViewModel(
 
     companion object {
         private var Instance: SavedActivitiesViewModel? = null
+
+        /**
+         * Factory for creating instances of [SavedActivitiesViewModel].
+         */
         val Factory: ViewModelProvider.Factory =
             viewModelFactory {
                 initializer {
