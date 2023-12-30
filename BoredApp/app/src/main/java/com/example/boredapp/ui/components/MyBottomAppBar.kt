@@ -39,7 +39,7 @@ fun MyBottomAppBar(
                 icon = {
                     Icon(
                         imageVector = navItem.icon,
-                        contentDescription = navItem.name,
+                        contentDescription = navItem.name + " icon",
                     )
                 },
                 label = { Text(text = navItem.name) },

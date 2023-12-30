@@ -20,9 +20,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.boredapp.R
 import com.example.boredapp.ui.createActivity.components.CreateActivityItem
 import com.example.boredapp.ui.createActivity.components.CreateRangedSlider
 import com.example.boredapp.ui.createActivity.components.CreateSlider
@@ -90,7 +92,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
-                        Text(text = "Press the button to generate a random activity")
+                        Text(text = stringResource(R.string.randomActivity))
                     },
                 ) {
                     generateActivityViewModel.getApiActivity()
@@ -107,7 +109,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     },
                 ) {
                     if (selectedOptionText.isBlank()) {
-                        Toast.makeText(context, "Selecteer een type", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Select type", Toast.LENGTH_SHORT).show()
                     } else {
                         generateActivityViewModel.getApiActivityByType(selectedOptionText)
                     }
@@ -120,14 +122,14 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     waitingComposable = {
                         TextField(
                             value = amountOfParticipants,
-                            label = { Text("Aantal deelnemers") },
+                            label = { Text("Amount of participants") },
                             onValueChange = { amountOfParticipants = it },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         )
                     },
                 ) {
                     if (amountOfParticipants.toIntOrNull() == null || amountOfParticipants.toInt() < 1) {
-                        Toast.makeText(context, "Geef een geldig aantal deelnemers", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Give a valid amount of participants", Toast.LENGTH_SHORT).show()
                         amountOfParticipants = ""
                     } else {
                         generateActivityViewModel.getApiActivityByParticipants(amountOfParticipants.toInt())
@@ -139,7 +141,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                 CreateActivityItem(
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
-                        CreateSlider("Prijs: ", priceSliderValue, onValueChange = { priceSliderValue = it })
+                        CreateSlider("Price: ", priceSliderValue, onValueChange = { priceSliderValue = it })
                     },
                 ) {
                     generateActivityViewModel.getApiActivityByPrice(priceSliderValue)
@@ -151,7 +153,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
                         CreateSlider(
-                            text = "Toegankelijkheid",
+                            text = "Accessibility: ",
                             sliderValue = accSliderValue,
                             onValueChange = { accSliderValue = it },
                         )
@@ -166,7 +168,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
                         CreateRangedSlider(
-                            text = "Prijs",
+                            text = "Price: ",
                             sliderValue = priceRangeSliderValue,
                             onValueChange = { priceRangeSliderValue = it },
                         )
@@ -181,7 +183,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                     generateActivityViewModel = generateActivityViewModel,
                     waitingComposable = {
                         CreateRangedSlider(
-                            text = "Toegankelijkheid",
+                            text = "Accessibility: ",
                             sliderValue = accRangeSliderValue,
                             onValueChange = { accRangeSliderValue = it },
                         )

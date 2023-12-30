@@ -3,4 +3,5 @@
     <string name="create">Create</string>
     <string name="profile">Profile</string>
     <string name="navigation_rail">Navigate between items here</string>
+    <string name="randomActivity">Press the button to generate a random activity</string>
 </resources>

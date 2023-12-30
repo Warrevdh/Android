@@ -2,10 +2,32 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="ExampleInstrumentedTest">
+      <entry key="BoredAppTest">
         <State />
       </entry>
       <entry key="app">
+        <State />
+      </entry>
+      <entry key="clickOnCreateNavButton()">
+        <State />
+      </entry>
+      <entry key="currentScreenTitle()">
+        <State>
+          <targetSelectedWithDropDown>
+            <Target>
+              <type value="QUICK_BOOT_TARGET" />
+              <deviceKey>
+                <Key>
+                  <type value="VIRTUAL_DEVICE_PATH" />
+                  <value value="C:\Users\Warre\.android\avd\Resizable_Experimental_API_34.avd" />
+                </Key>
+              </deviceKey>
+            </Target>
+          </targetSelectedWithDropDown>
+          <timeTargetWasSelectedWithDropDown value="2023-12-30T14:12:53.353469900Z" />
+        </State>
+      </entry>
+      <entry key="homeNavButton()">
         <State />
       </entry>
     </value>

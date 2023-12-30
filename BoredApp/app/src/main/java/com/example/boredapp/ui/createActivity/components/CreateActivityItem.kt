@@ -54,11 +54,11 @@ fun CreateActivityItem(
                 is ActivityApiState.NoActivityFound -> {
                     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                         waitingComposable()
-                        Text("Geen activiteit gevonden")
+                        Text("No activity found, try again")
                     }
                 }
                 is ActivityApiState.Error -> {
-                    Text("Error")
+                    Text("Something went wrong, make sure you have an internet connection")
                 }
                 is ActivityApiState.Waiting -> {
                     waitingComposable()
@@ -80,7 +80,7 @@ fun CreateActivityItem(
                 }
                 else -> {
                     Button(onClick = onGenerate) {
-                        Text("Genereer")
+                        Text("Generate")
                     }
                 }
             }
