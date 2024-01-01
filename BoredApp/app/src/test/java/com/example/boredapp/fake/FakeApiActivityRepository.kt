@@ -10,8 +10,7 @@ class FakeApiActivityRepository : ActivityRepository {
     }
 
     override fun getAllActivities(): Flow<List<Activity>> {
-        var list = FakeDataSource.activities
-        return list as Flow<List<Activity>>
+        TODO("Not yet implemented")
     }
 
     override suspend fun deleteActivity(activity: Activity) {
