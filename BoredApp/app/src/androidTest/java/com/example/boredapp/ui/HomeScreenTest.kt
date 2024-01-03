@@ -15,7 +15,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class CreateScreenTest {
+class HomeScreenTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
@@ -24,7 +24,6 @@ class CreateScreenTest {
         composeTestRule.setContent {
             BoredApp(navigationType = NavigationType.BOTTOM_NAVIGATION)
         }
-        composeTestRule.onNodeWithContentDescription("Create icon", useUnmergedTree = true).performClick()
     }
 
     private fun getResourceString(
@@ -35,25 +34,29 @@ class CreateScreenTest {
     }
 
     @Test
-    fun createScreen_checkTab_tabDisplayed() {
-        composeTestRule.onNodeWithText("Random").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Participants").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Type").assertIsDisplayed()
+    fun homeScreen_homeIcon_homeIconDisplayed() {
+        composeTestRule.onNodeWithContentDescription("Home icon", useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
-    fun createScreen_generateActivity_generatingActivity() {
-        composeTestRule.onNodeWithText("Generate").performClick()
-        composeTestRule.onNodeWithTag("loadingIcon").assertIsDisplayed()
+    fun homeScreen_createIcon_createIconDisplayed() {
+        composeTestRule.onNodeWithContentDescription("Create icon", useUnmergedTree = true).assertIsDisplayed()
     }
 
     @Test
-    fun createScreen_createScreenTitle_createScreenTitleProfile() {
+    fun homeScreen_profileIcon_profileIconDisplayed() {
+        composeTestRule.onNodeWithContentDescription("Profile icon", useUnmergedTree = true).assertIsDisplayed()
+    }
+
+    @Test
+    fun homeScreen_homeScreenTitle_homeScreenTitleDisplayed() {
         composeTestRule.onNodeWithTag("screenTitle").assertIsDisplayed()
     }
 
     @Test
-    fun createScreen_navigateBack_navigatingBackHome() {
+    fun homeScreen_navigateToCreateAndBack_canNavigate() {
+        composeTestRule.onNodeWithContentDescription("Create icon", useUnmergedTree = true).performClick()
+        composeTestRule.onNodeWithContentDescription("Navigate Back").assertIsDisplayed()
         composeTestRule.onNodeWithContentDescription("Navigate Back", useUnmergedTree = true).performClick()
         composeTestRule.onNodeWithText(getResourceString(NavOptions.Home.title)).assertIsDisplayed()
     }

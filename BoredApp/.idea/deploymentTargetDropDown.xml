@@ -2,10 +2,13 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="BoredAppTest">
+        <State />
+      </entry>
       <entry key="CreateScreenTest">
         <State />
       </entry>
-      <entry key="NavigationTest">
+      <entry key="Tests in 'com.example.boredapp'">
         <State />
       </entry>
       <entry key="Tests in 'com.example.boredapp.ui'">
@@ -14,10 +17,7 @@
       <entry key="app">
         <State />
       </entry>
-      <entry key="clickGenerateButton()">
-        <State />
-      </entry>
-      <entry key="createOptionsDisplayed()">
+      <entry key="createScreen_generateActivity_generatingActivity()">
         <State />
       </entry>
     </value>

@@ -23,7 +23,7 @@ fun SaveActivityBtns(generateActivityViewModel: GenerateActivityViewModel) {
     val context = LocalContext.current
 
     // Row containing cancel and save buttons
-    Row {
+    Row(modifier = Modifier.padding(vertical = 16.dp)) {
         // Cancel button
         Button(onClick = {
             generateActivityViewModel.resetActivity()

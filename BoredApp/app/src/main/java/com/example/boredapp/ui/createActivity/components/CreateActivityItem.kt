@@ -15,7 +15,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.boredapp.ui.components.ActivityItem
 import com.example.boredapp.ui.createActivity.ActivityApiState
 import com.example.boredapp.ui.createActivity.GenerateActivityViewModel
@@ -46,10 +49,18 @@ fun CreateActivityItem(
             when (activityApiState) {
                 is ActivityApiState.Loading -> {
                     Spacer(modifier = Modifier.padding(vertical = 8.dp))
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(modifier = Modifier.testTag("loadingIcon"))
                 }
                 is ActivityApiState.Success -> {
-                    ActivityItem(activity = uiActivityState.activity)
+                    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            text = "Generated activity:",
+                            modifier = Modifier.padding(vertical = 8.dp),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp,
+                        )
+                        ActivityItem(activity = uiActivityState.activity)
+                    }
                 }
                 is ActivityApiState.NoActivityFound -> {
                     Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
@@ -79,7 +90,7 @@ fun CreateActivityItem(
                     SaveActivityBtns(generateActivityViewModel = generateActivityViewModel)
                 }
                 else -> {
-                    Button(onClick = onGenerate) {
+                    Button(modifier = Modifier.padding(vertical = 16.dp), onClick = onGenerate) {
                         Text("Generate")
                     }
                 }

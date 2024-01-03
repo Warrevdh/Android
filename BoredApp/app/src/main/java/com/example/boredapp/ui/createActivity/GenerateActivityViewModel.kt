@@ -77,87 +77,92 @@ class GenerateActivityViewModel(
     // Functions for retrieving activities from the activity repository based on different criteria
 
     fun getApiActivity() {
+        activityApiState = ActivityApiState.Loading
         viewModelScope.launch {
-            try {
-                activityApiState = ActivityApiState.Loading
-                val result = activityRepository.generateActivity()
-                _uiState.update { GenerateActivityState(result.asDomainObject()) }
-                activityApiState = ActivityApiState.Success
-            } catch (e: IOException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: SocketTimeoutException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: NullPointerException) {
-                activityApiState = ActivityApiState.NoActivityFound
-            }
+            activityApiState =
+                try {
+                    val result = activityRepository.generateActivity()
+                    _uiState.update { GenerateActivityState(result.asDomainObject()) }
+                    ActivityApiState.Success
+                } catch (e: IOException) {
+                    ActivityApiState.Error
+                } catch (e: SocketTimeoutException) {
+                    ActivityApiState.Error
+                } catch (e: NullPointerException) {
+                    ActivityApiState.NoActivityFound
+                }
         }
     }
 
     fun getApiActivityByType(type: String) {
         viewModelScope.launch {
-            try {
-                activityApiState = ActivityApiState.Loading
-                val result = activityRepository.getActivityByType(type)
-                _uiState.update { GenerateActivityState(result.asDomainObject()) }
-                activityApiState = ActivityApiState.Success
-            } catch (e: IOException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: SocketTimeoutException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: NullPointerException) {
-                activityApiState = ActivityApiState.NoActivityFound
-            }
+            activityApiState = ActivityApiState.Loading
+            activityApiState =
+                try {
+                    val result = activityRepository.getActivityByType(type)
+                    _uiState.update { GenerateActivityState(result.asDomainObject()) }
+                    ActivityApiState.Success
+                } catch (e: IOException) {
+                    ActivityApiState.Error
+                } catch (e: SocketTimeoutException) {
+                    ActivityApiState.Error
+                } catch (e: NullPointerException) {
+                    ActivityApiState.NoActivityFound
+                }
         }
     }
 
     fun getApiActivityByAccessibility(accessibility: Float) {
+        activityApiState = ActivityApiState.Loading
         viewModelScope.launch {
-            try {
-                activityApiState = ActivityApiState.Loading
-                val result = activityRepository.getActivityByAccessibility(accessibility)
-                _uiState.update { GenerateActivityState(result.asDomainObject()) }
-                activityApiState = ActivityApiState.Success
-            } catch (e: IOException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: SocketTimeoutException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: NullPointerException) {
-                activityApiState = ActivityApiState.NoActivityFound
-            }
+            activityApiState =
+                try {
+                    val result = activityRepository.getActivityByAccessibility(accessibility)
+                    _uiState.update { GenerateActivityState(result.asDomainObject()) }
+                    ActivityApiState.Success
+                } catch (e: IOException) {
+                    ActivityApiState.Error
+                } catch (e: SocketTimeoutException) {
+                    ActivityApiState.Error
+                } catch (e: NullPointerException) {
+                    ActivityApiState.NoActivityFound
+                }
         }
     }
 
     fun getApiActivityByParticipants(participants: Int) {
+        activityApiState = ActivityApiState.Loading
         viewModelScope.launch {
-            try {
-                activityApiState = ActivityApiState.Loading
-                val result = activityRepository.getActivityByParticipants(participants)
-                _uiState.update { GenerateActivityState(result.asDomainObject()) }
-                activityApiState = ActivityApiState.Success
-            } catch (e: IOException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: SocketTimeoutException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: NullPointerException) {
-                activityApiState = ActivityApiState.NoActivityFound
-            }
+            activityApiState =
+                try {
+                    val result = activityRepository.getActivityByParticipants(participants)
+                    _uiState.update { GenerateActivityState(result.asDomainObject()) }
+                    ActivityApiState.Success
+                } catch (e: IOException) {
+                    ActivityApiState.Error
+                } catch (e: SocketTimeoutException) {
+                    ActivityApiState.Error
+                } catch (e: NullPointerException) {
+                    ActivityApiState.NoActivityFound
+                }
         }
     }
 
     fun getApiActivityByPrice(price: Float) {
+        activityApiState = ActivityApiState.Loading
         viewModelScope.launch {
-            try {
-                activityApiState = ActivityApiState.Loading
-                val result = activityRepository.getActivityByPrice(price)
-                _uiState.update { GenerateActivityState(result.asDomainObject()) }
-                activityApiState = ActivityApiState.Success
-            } catch (e: IOException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: SocketTimeoutException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: NullPointerException) {
-                activityApiState = ActivityApiState.NoActivityFound
-            }
+            activityApiState =
+                try {
+                    val result = activityRepository.getActivityByPrice(price)
+                    _uiState.update { GenerateActivityState(result.asDomainObject()) }
+                    ActivityApiState.Success
+                } catch (e: IOException) {
+                    ActivityApiState.Error
+                } catch (e: SocketTimeoutException) {
+                    ActivityApiState.Error
+                } catch (e: NullPointerException) {
+                    ActivityApiState.NoActivityFound
+                }
         }
     }
 
@@ -165,19 +170,20 @@ class GenerateActivityViewModel(
         minPrice: Float,
         maxPrice: Float,
     ) {
+        activityApiState = ActivityApiState.Loading
         viewModelScope.launch {
-            try {
-                activityApiState = ActivityApiState.Loading
-                val result = activityRepository.getActivityByPriceRange(minPrice, maxPrice)
-                _uiState.update { GenerateActivityState(result.asDomainObject()) }
-                activityApiState = ActivityApiState.Success
-            } catch (e: IOException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: SocketTimeoutException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: NullPointerException) {
-                activityApiState = ActivityApiState.NoActivityFound
-            }
+            activityApiState =
+                try {
+                    val result = activityRepository.getActivityByPriceRange(minPrice, maxPrice)
+                    _uiState.update { GenerateActivityState(result.asDomainObject()) }
+                    ActivityApiState.Success
+                } catch (e: IOException) {
+                    ActivityApiState.Error
+                } catch (e: SocketTimeoutException) {
+                    ActivityApiState.Error
+                } catch (e: NullPointerException) {
+                    ActivityApiState.NoActivityFound
+                }
         }
     }
 
@@ -185,19 +191,20 @@ class GenerateActivityViewModel(
         minAccessibility: Float,
         maxAccessibility: Float,
     ) {
+        activityApiState = ActivityApiState.Loading
         viewModelScope.launch {
-            try {
-                activityApiState = ActivityApiState.Loading
-                val result = activityRepository.getActivityByAccessibilityRange(minAccessibility, maxAccessibility)
-                _uiState.update { GenerateActivityState(result.asDomainObject()) }
-                activityApiState = ActivityApiState.Success
-            } catch (e: IOException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: SocketTimeoutException) {
-                activityApiState = ActivityApiState.Error
-            } catch (e: NullPointerException) {
-                activityApiState = ActivityApiState.NoActivityFound
-            }
+            activityApiState =
+                try {
+                    val result = activityRepository.getActivityByAccessibilityRange(minAccessibility, maxAccessibility)
+                    _uiState.update { GenerateActivityState(result.asDomainObject()) }
+                    ActivityApiState.Success
+                } catch (e: IOException) {
+                    ActivityApiState.Error
+                } catch (e: SocketTimeoutException) {
+                    ActivityApiState.Error
+                } catch (e: NullPointerException) {
+                    ActivityApiState.NoActivityFound
+                }
         }
     }
 
