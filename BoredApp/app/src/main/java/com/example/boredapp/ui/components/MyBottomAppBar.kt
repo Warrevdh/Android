@@ -7,7 +7,6 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavDestination
 import com.example.boredapp.ui.navigation.NavOptions
 
@@ -45,8 +44,8 @@ fun MyBottomAppBar(
                 label = { Text(text = navItem.name) },
                 colors =
                     NavigationBarItemDefaults.colors(
-                        selectedIconColor = Color.Black,
-                        selectedTextColor = Color.Black,
+                        selectedIconColor = MaterialTheme.colorScheme.primary,
+                        selectedTextColor = MaterialTheme.colorScheme.primary,
                         indicatorColor = MaterialTheme.colorScheme.surfaceVariant,
                     ),
             )

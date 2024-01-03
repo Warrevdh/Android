@@ -11,7 +11,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 /**
@@ -35,7 +34,6 @@ fun CreateSlider(
                 Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 32.dp),
-            Color.Black,
         )
         // Slider for selecting a single value
         Slider(
@@ -72,7 +70,6 @@ fun CreateRangedSlider(
                 Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(top = 32.dp),
-            color = Color.Black,
         )
         // Display the maximum value of the range slider
         Text(
@@ -80,7 +77,6 @@ fun CreateRangedSlider(
             modifier =
                 Modifier
                     .align(Alignment.CenterHorizontally),
-            color = Color.Black,
         )
         // RangeSlider for selecting a range of values
         RangeSlider(

@@ -19,6 +19,7 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -88,7 +89,7 @@ fun ActivityItem(
                                         openUrl.data = Uri.parse(activity.link)
                                         ContextCompat.startActivity(context, openUrl, Bundle())
                                     },
-                                color = Color.Blue,
+                                color = MaterialTheme.colorScheme.primary,
                                 textDecoration = TextDecoration.Underline,
                                 text = activity.link,
                             )
