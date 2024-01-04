@@ -1,49 +1,96 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.example.boredapp
 
-import com.example.boredapp.fake.FakeApiActivityRepository
+import com.example.boredapp.data.ActivityRepository
+import com.example.boredapp.fake.FakeDataSource
+import com.example.boredapp.model.Activity
+import com.example.boredapp.network.asDomainObject
+import com.example.boredapp.ui.profile.ActivityListState
 import com.example.boredapp.ui.profile.SavedActivitiesViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestDispatcher
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.rules.TestWatcher
-import org.junit.runner.Description
+import org.junit.runner.RunWith
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.MockitoAnnotations
+import org.mockito.junit.MockitoJUnitRunner
+import java.lang.RuntimeException
 
+@RunWith(MockitoJUnitRunner::class)
 class SavedActivitiesViewModelTest {
-    lateinit var viewModel: SavedActivitiesViewModel
-
     @get:Rule
-    val testDispatcher = TestDispatchersRule()
+    val testCoroutineRule = TestDispatcherRule()
+
+    @Mock
+    private lateinit var repository: ActivityRepository
+
+    private lateinit var viewModel: SavedActivitiesViewModel
+
+    private val activityList = FakeDataSource.activities.map { it.asDomainObject() }
+    private val emptyActivityList = emptyList<Activity>()
 
     @Before
     fun setUp() {
-        viewModel = SavedActivitiesViewModel(FakeApiActivityRepository())
+        MockitoAnnotations.openMocks(this)
+        `when`(repository.getAllActivities()).thenReturn(flowOf(activityList))
+        viewModel = SavedActivitiesViewModel(repository)
     }
 
     @Test
-    fun viewModelStartsWithEmptyList() {
-        assertEquals(0, viewModel.savedActivityList.value.activities.size)
-    }
-}
+    fun `fetches saved activities on init`() =
+        runTest {
+            assertEquals(activityList, viewModel.savedActivityList.first().activities)
+        }
 
-class TestDispatchersRule(
-    private val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
-) : TestWatcher() {
-    override fun starting(description: Description?) {
-        super.starting(description)
-        Dispatchers.setMain(testDispatcher)
-    }
+    @Test
+    fun `activityListState is Error when getAllActivities throws`() =
+        runTest {
+            `when`(repository.getAllActivities()).thenThrow(RuntimeException())
+            viewModel = SavedActivitiesViewModel(repository)
+            assertEquals(ActivityListState.Error, viewModel.activityListState)
+        }
 
-    override fun finished(description: Description?) {
-        super.finished(description)
-        Dispatchers.resetMain()
-    }
+    @Test
+    fun `clears saved activities`() =
+        runTest {
+            `when`(repository.deleteAllActivities()).then {
+                `when`(repository.getAllActivities()).thenReturn(flowOf(emptyActivityList))
+            }
+            viewModel.clearList()
+            assertEquals(emptyActivityList, viewModel.savedActivityList.first().activities)
+        }
+
+    @Test
+    fun `clears saved activities when getAllActivities throws`() =
+        runTest {
+            `when`(repository.deleteAllActivities()).then {
+                `when`(repository.getAllActivities()).thenThrow(RuntimeException())
+            }
+            viewModel.clearList()
+            assertEquals(ActivityListState.Error, viewModel.activityListState)
+        }
+
+    @Test
+    fun `delete one activity`() =
+        runTest {
+            `when`(repository.deleteActivity(activityList[0])).then {
+                `when`(repository.getAllActivities()).thenReturn(flowOf(activityList.drop(1)))
+            }
+            viewModel.deleteActivity(activityList[0])
+            assertEquals(activityList.drop(1), viewModel.savedActivityList.first().activities)
+        }
+
+    @Test
+    fun `delete one activity when getAllActivities throws`() =
+        runTest {
+            `when`(repository.deleteActivity(activityList[0])).then {
+                `when`(repository.getAllActivities()).thenThrow(RuntimeException())
+            }
+            viewModel.deleteActivity(activityList[0])
+            assertEquals(ActivityListState.Error, viewModel.activityListState)
+        }
 }

@@ -17,7 +17,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import java.io.IOException
 
 /**
  * ViewModel responsible for managing saved activities and their state.
@@ -52,7 +51,7 @@ class SavedActivitiesViewModel(
                 activityRepository.deleteAllActivities()
                 getActivities()
             }
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             activityListState = ActivityListState.Error
         }
     }
@@ -68,7 +67,7 @@ class SavedActivitiesViewModel(
                 activityRepository.deleteActivity(activity)
                 getActivities()
             }
-        } catch (e: IOException) {
+        } catch (e: java.lang.Exception) {
             activityListState = ActivityListState.Error
         }
     }
@@ -85,7 +84,7 @@ class SavedActivitiesViewModel(
                     initialValue = SavedActivitiesState(activities = emptyList()),
                 )
             activityListState = ActivityListState.Success
-        } catch (e: IOException) {
+        } catch (e: Exception) {
             activityListState = ActivityListState.Error
         }
     }

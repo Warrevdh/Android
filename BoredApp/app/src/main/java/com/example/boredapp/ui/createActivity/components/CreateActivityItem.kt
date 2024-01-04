@@ -52,7 +52,7 @@ fun CreateActivityItem(
                     CircularProgressIndicator(modifier = Modifier.testTag("loadingIcon"))
                 }
                 is ActivityApiState.Success -> {
-                    Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                    androidx.compose.foundation.layout.Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
                             text = "Generated activity:",
                             modifier = Modifier.padding(vertical = 8.dp),

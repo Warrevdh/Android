@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.boredapp.GenerateActivityViewModelTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2024-01-04T13:45:55" hostname="DESKTOP-23P8MO7" time="0.338">
+  <properties/>
+  <testcase name="generate apiActivityByParticipants error" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.3"/>
+  <testcase name="reset activity" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.011"/>
+  <testcase name="generate apiActivity error" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.003"/>
+  <testcase name="generate apiActivityByType error" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.004"/>
+  <testcase name="generate apiActivityByParticipants" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.003"/>
+  <testcase name="generate apiActivityByType" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.003"/>
+  <testcase name="generate apiActivity no activity found error" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.003"/>
+  <testcase name="save activity" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.004"/>
+  <testcase name="generate apiActivity" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.002"/>
+  <testcase name="activityApiState default state is Waiting" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.001"/>
+  <testcase name="save activity error" classname="com.example.boredapp.GenerateActivityViewModelTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -17,8 +17,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.io.IOException
-import java.net.SocketTimeoutException
 
 /**
  * ViewModel responsible for handling the generation and retrieval of activity data.
@@ -68,7 +66,7 @@ class GenerateActivityViewModel(
             try {
                 activityRepository.insertActivity(uiState.value.activity)
                 resetActivity()
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 activityApiState = ActivityApiState.Error
             }
         }
@@ -84,12 +82,10 @@ class GenerateActivityViewModel(
                     val result = activityRepository.generateActivity()
                     _uiState.update { GenerateActivityState(result.asDomainObject()) }
                     ActivityApiState.Success
-                } catch (e: IOException) {
-                    ActivityApiState.Error
-                } catch (e: SocketTimeoutException) {
-                    ActivityApiState.Error
                 } catch (e: NullPointerException) {
                     ActivityApiState.NoActivityFound
+                } catch (e: Exception) {
+                    ActivityApiState.Error
                 }
         }
     }
@@ -102,12 +98,10 @@ class GenerateActivityViewModel(
                     val result = activityRepository.getActivityByType(type)
                     _uiState.update { GenerateActivityState(result.asDomainObject()) }
                     ActivityApiState.Success
-                } catch (e: IOException) {
-                    ActivityApiState.Error
-                } catch (e: SocketTimeoutException) {
-                    ActivityApiState.Error
                 } catch (e: NullPointerException) {
                     ActivityApiState.NoActivityFound
+                } catch (e: Exception) {
+                    ActivityApiState.Error
                 }
         }
     }
@@ -120,12 +114,10 @@ class GenerateActivityViewModel(
                     val result = activityRepository.getActivityByAccessibility(accessibility)
                     _uiState.update { GenerateActivityState(result.asDomainObject()) }
                     ActivityApiState.Success
-                } catch (e: IOException) {
-                    ActivityApiState.Error
-                } catch (e: SocketTimeoutException) {
-                    ActivityApiState.Error
                 } catch (e: NullPointerException) {
                     ActivityApiState.NoActivityFound
+                } catch (e: Exception) {
+                    ActivityApiState.Error
                 }
         }
     }
@@ -138,12 +130,10 @@ class GenerateActivityViewModel(
                     val result = activityRepository.getActivityByParticipants(participants)
                     _uiState.update { GenerateActivityState(result.asDomainObject()) }
                     ActivityApiState.Success
-                } catch (e: IOException) {
-                    ActivityApiState.Error
-                } catch (e: SocketTimeoutException) {
-                    ActivityApiState.Error
                 } catch (e: NullPointerException) {
                     ActivityApiState.NoActivityFound
+                } catch (e: Exception) {
+                    ActivityApiState.Error
                 }
         }
     }
@@ -156,12 +146,10 @@ class GenerateActivityViewModel(
                     val result = activityRepository.getActivityByPrice(price)
                     _uiState.update { GenerateActivityState(result.asDomainObject()) }
                     ActivityApiState.Success
-                } catch (e: IOException) {
-                    ActivityApiState.Error
-                } catch (e: SocketTimeoutException) {
-                    ActivityApiState.Error
                 } catch (e: NullPointerException) {
                     ActivityApiState.NoActivityFound
+                } catch (e: Exception) {
+                    ActivityApiState.Error
                 }
         }
     }
@@ -177,12 +165,10 @@ class GenerateActivityViewModel(
                     val result = activityRepository.getActivityByPriceRange(minPrice, maxPrice)
                     _uiState.update { GenerateActivityState(result.asDomainObject()) }
                     ActivityApiState.Success
-                } catch (e: IOException) {
-                    ActivityApiState.Error
-                } catch (e: SocketTimeoutException) {
-                    ActivityApiState.Error
                 } catch (e: NullPointerException) {
                     ActivityApiState.NoActivityFound
+                } catch (e: Exception) {
+                    ActivityApiState.Error
                 }
         }
     }
@@ -198,12 +184,10 @@ class GenerateActivityViewModel(
                     val result = activityRepository.getActivityByAccessibilityRange(minAccessibility, maxAccessibility)
                     _uiState.update { GenerateActivityState(result.asDomainObject()) }
                     ActivityApiState.Success
-                } catch (e: IOException) {
-                    ActivityApiState.Error
-                } catch (e: SocketTimeoutException) {
-                    ActivityApiState.Error
                 } catch (e: NullPointerException) {
                     ActivityApiState.NoActivityFound
+                } catch (e: Exception) {
+                    ActivityApiState.Error
                 }
         }
     }
