@@ -16,9 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.boredapp.ui.components.ActivityItem
 import com.example.boredapp.ui.createActivity.ActivityApiState
 import com.example.boredapp.ui.createActivity.GenerateActivityViewModel
@@ -42,7 +40,10 @@ fun CreateActivityItem(
     val activityApiState = generateActivityViewModel.activityApiState
 
     Column(
-        modifier = modifier,
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .fillMaxHeight(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box {
@@ -52,13 +53,9 @@ fun CreateActivityItem(
                     CircularProgressIndicator(modifier = Modifier.testTag("loadingIcon"))
                 }
                 is ActivityApiState.Success -> {
-                    androidx.compose.foundation.layout.Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                        Text(
-                            text = "Generated activity:",
-                            modifier = Modifier.padding(vertical = 8.dp),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp,
-                        )
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
                         ActivityItem(activity = uiActivityState.activity)
                     }
                 }
@@ -78,19 +75,18 @@ fun CreateActivityItem(
         }
         Column(
             modifier =
-                Modifier
+                modifier
                     .fillMaxHeight()
-                    .fillMaxWidth()
                     .padding(bottom = 8.dp),
-            verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom,
         ) {
             when (activityApiState) {
                 is ActivityApiState.Success -> {
                     SaveActivityBtns(generateActivityViewModel = generateActivityViewModel)
                 }
                 else -> {
-                    Button(modifier = Modifier.padding(vertical = 16.dp), onClick = onGenerate) {
+                    Button(modifier = modifier.padding(vertical = 16.dp), onClick = onGenerate) {
                         Text("Generate")
                     }
                 }

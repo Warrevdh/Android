@@ -4,22 +4,22 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * Interface defining API endpoints for retrieving activities.
+ * Retrofit service interface for fetching activities from an external API.
  */
 interface ActivityApiService {
     /**
-     * Retrieves a random activity from the external API.
+     * Fetches a random activity from the API.
      *
-     * @return The retrieved [ApiActivity] object.
+     * @return An [ApiActivity] object representing the fetched activity.
      */
     @GET("activity")
     suspend fun getActivity(): ApiActivity
 
     /**
-     * Retrieves an activity from the external API based on its type.
+     * Fetches activities based on the specified type.
      *
-     * @param type The type or category of the activity.
-     * @return The retrieved [ApiActivity] object.
+     * @param type The type of activity to filter by.
+     * @return An [ApiActivity] object representing the fetched activities with the specified type.
      */
     @GET("activity")
     suspend fun getActivityByType(
@@ -27,10 +27,10 @@ interface ActivityApiService {
     ): ApiActivity
 
     /**
-     * Retrieves an activity from the external API based on the number of participants.
+     * Fetches activities based on the specified number of participants.
      *
-     * @param participants The number of participants required for the activity.
-     * @return The retrieved [ApiActivity] object.
+     * @param participants The number of participants for the activity.
+     * @return An [ApiActivity] object representing the fetched activities with the specified number of participants.
      */
     @GET("activity")
     suspend fun getActivityByParticipants(
@@ -38,10 +38,10 @@ interface ActivityApiService {
     ): ApiActivity
 
     /**
-     * Retrieves an activity from the external API based on its price.
+     * Fetches activities based on the specified price.
      *
-     * @param price The cost factor associated with the activity.
-     * @return The retrieved [ApiActivity] object.
+     * @param price The price of the activity.
+     * @return An [ApiActivity] object representing the fetched activities with the specified price.
      */
     @GET("activity")
     suspend fun getActivityByPrice(
@@ -49,10 +49,10 @@ interface ActivityApiService {
     ): ApiActivity
 
     /**
-     * Retrieves an activity from the external API based on its accessibility level.
+     * Fetches activities based on the specified accessibility level.
      *
-     * @param accessibility The level of accessibility for the activity.
-     * @return The retrieved [ApiActivity] object.
+     * @param accessibility The accessibility level of the activity.
+     * @return An [ApiActivity] object representing the fetched activities with the specified accessibility level.
      */
     @GET("activity")
     suspend fun getActivityByAccessibility(
@@ -60,11 +60,11 @@ interface ActivityApiService {
     ): ApiActivity
 
     /**
-     * Retrieves an activity from the external API based on a price range.
+     * Fetches activities within the specified price range.
      *
-     * @param minprice The minimum price of the activity.
-     * @param maxprice The maximum price of the activity.
-     * @return The retrieved [ApiActivity] object.
+     * @param minprice The minimum price for the activity.
+     * @param maxprice The maximum price for the activity.
+     * @return An [ApiActivity] object representing the fetched activities within the specified price range.
      */
     @GET("activity")
     suspend fun getActivityByPriceRange(
@@ -73,11 +73,11 @@ interface ActivityApiService {
     ): ApiActivity
 
     /**
-     * Retrieves an activity from the external API based on an accessibility range.
+     * Fetches activities within the specified accessibility range.
      *
-     * @param minaccessibility The minimum accessibility level of the activity.
-     * @param maxaccessibility The maximum accessibility level of the activity.
-     * @return The retrieved [ApiActivity] object.
+     * @param minaccessibility The minimum accessibility level for the activity.
+     * @param maxaccessibility The maximum accessibility level for the activity.
+     * @return An [ApiActivity] object representing the fetched activities within the specified accessibility range.
      */
     @GET("activity")
     suspend fun getActivityByAccessibilityRange(

@@ -28,7 +28,7 @@ fun Dropdown(
     // List of available options for the dropdown
     val options = listOf("education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork")
 
-    // State to track the dropdown's expanded/collapsed state
+    // State to track the dropdowns expanded/collapsed state
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(

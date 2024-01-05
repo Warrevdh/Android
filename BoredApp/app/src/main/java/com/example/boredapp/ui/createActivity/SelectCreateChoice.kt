@@ -3,6 +3,8 @@ package com.example.boredapp.ui.createActivity
 import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -68,7 +70,7 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
     }
 
     // Main column for UI layout
-    Column {
+    Column(modifier = Modifier.fillMaxHeight().fillMaxWidth()) {
         // Scrollable tabs for different criteria
         ScrollableTabRow(selectedTabIndex = selectedTab) {
             tabs.forEachIndexed { tabIndex, tab ->
@@ -174,7 +176,10 @@ fun SelectCreateChoice(generateActivityViewModel: GenerateActivityViewModel = vi
                         )
                     },
                 ) {
-                    generateActivityViewModel.getApiActivityByPriceRange(priceRangeSliderValue.start, priceRangeSliderValue.endInclusive)
+                    generateActivityViewModel.getApiActivityByPriceRange(
+                        priceRangeSliderValue.start,
+                        priceRangeSliderValue.endInclusive,
+                    )
                 }
             }
             6 -> {
