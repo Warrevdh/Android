@@ -66,7 +66,10 @@ fun CreateActivityItem(
                     }
                 }
                 is ActivityApiState.Error -> {
-                    Text("Something went wrong, make sure you have an internet connection")
+                    Text(
+                        "Something went wrong, make sure you have an internet connection",
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                    )
                 }
                 is ActivityApiState.Waiting -> {
                     waitingComposable()
