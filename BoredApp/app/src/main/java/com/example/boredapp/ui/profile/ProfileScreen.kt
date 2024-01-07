@@ -94,7 +94,7 @@ fun ProfileScreen(
 
                         // LazyColumn to display the list of saved activities
                         LazyColumn {
-                            items(savedActivitiesState.activities) {
+                            items(savedActivitiesState.activities.reversed()) {
                                 // Display each activity item
                                 ActivityItem(
                                     activity = it,
